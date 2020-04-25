@@ -1,5 +1,5 @@
 package controller;
-//cek uli
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Motor;
 import model.Student;
-
+sdadw;
 public class ActionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
