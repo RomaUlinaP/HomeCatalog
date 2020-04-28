@@ -9,23 +9,21 @@ public class Rumah {
 	String provinsi;
 	String Alamat;
 	int Harga;
-	int ukuran; //panjang, lebar
-	String fasilitas; //schema
+	private Ukuran ukuran;
+	private Fasilitas fasilitas;
 	String Foto; //
 	
 	public Rumah() {
 		super();
 	}
 	
-	public Rumah(String nama, String status, String provinsi, String Alamat, int Harga, int ukuran, String fasilitas, String Foto) {
+	public Rumah(String nama, String status, String provinsi, String Alamat, int Harga, String Foto) {
 		super();
 		this.setNama(nama);
 		this.setStatus(status);
 		this.setProvinsi(provinsi);
 		this.setAlamat(Alamat);
 		this.setHarga(Harga);
-		this.setUkuran(ukuran);
-		this.setFasilitas(fasilitas);
 		this.setFoto(Foto);
 	}
 	
@@ -77,22 +75,6 @@ public class Rumah {
 		Harga = harga;
 	}
 
-	public final int getUkuran() {
-		return ukuran;
-	}
-
-	public final void setUkuran(int ukuran) {
-		this.ukuran = ukuran;
-	}
-
-	public final String getFasilitas() {
-		return fasilitas;
-	}
-
-	public final void setFasilitas(String fasilitas) {
-		this.fasilitas = fasilitas;
-	}
-
 	public final String getFoto() {
 		return Foto;
 	}
@@ -100,8 +82,20 @@ public class Rumah {
 	public void setFoto(String foto) {
 		Foto = foto;
 	}
-	
-	
-	
-	
+
+	public Fasilitas getFasilitas() {
+		return fasilitas;
+	}
+
+	public void setFasilitas(Fasilitas fasilitas) {
+		this.fasilitas = fasilitas;
+	}
+
+	public Ukuran getUkuran() {
+		return ukuran;
+	}
+
+	public void setUkuran(Ukuran ukuran) {
+		this.ukuran = ukuran;
+	}
 }
