@@ -7,16 +7,14 @@ public class Fasilitas {
 	private int dapur;
 	private int halamanBelakang;
 	
-	public Fasilitas() {
-		
-	}
+	public Fasilitas() {}
 	
 	public Fasilitas(final int kamarTidur, final int kamarMandi, final int garasi, final int dapur, final int halamanBelakang) {
-		this.setKamarTidur(kamarTidur);
-		this.setKamarMandi(kamarMandi);
-		this.setGarasi(garasi);
-		this.setDapur(dapur);
-		this.setHalamanBelakang(halamanBelakang);
+		this.kamarTidur = kamarTidur;
+		this.kamarMandi = kamarMandi;
+		this.garasi = garasi;
+		this.dapur = dapur;
+		this.halamanBelakang = halamanBelakang;
 	}
 
 	public int getKamarTidur() {

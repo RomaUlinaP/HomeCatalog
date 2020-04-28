@@ -18,8 +18,20 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/MongoDb/MongoDB/bson-3.12.2.jar"/>
-	<classpathentry kind="lib" path="D:/MongoDb/MongoDB/mongodb-driver-3.12.2.jar"/>
-	<classpathentry kind="lib" path="D:/MongoDb/MongoDB/mongodb-driver-core-3.12.2.jar"/>
+	<classpathentry kind="lib" path="A:/POLBAN/D4/Semester 4/Pemodelan Data/M-8/Pertemuan-8/bson-3.12.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="A:/POLBAN/D4/Semester 4/Pemodelan Data/M-8/Pertemuan-8/mongodb-driver-3.12.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="A:/POLBAN/D4/Semester 4/Pemodelan Data/M-8/Pertemuan-8/mongodb-driver-core-3.12.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -4,6 +4,8 @@ public class Ukuran {
 	int Panjang;
 	int Lebar;
 	
+	public Ukuran() {}
+	
 	public  Ukuran(int Panjang, int Lebar) {
 		super();
 		this.Panjang = Panjang;

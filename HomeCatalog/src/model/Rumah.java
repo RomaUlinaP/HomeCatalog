@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 
 public class Rumah {
@@ -11,71 +14,71 @@ public class Rumah {
 	int Harga;
 	private Ukuran ukuran;
 	private Fasilitas fasilitas;
+	
+	List<Pemilik> pemilik = new ArrayList<>();
 	String Foto; //
 	
-	public Rumah() {
-		super();
-	}
+	public Rumah() {}
 	
-	public Rumah(String nama, String status, String provinsi, String Alamat, int Harga, String Foto) {
-		super();
-		this.setNama(nama);
-		this.setStatus(status);
-		this.setProvinsi(provinsi);
-		this.setAlamat(Alamat);
-		this.setHarga(Harga);
-		this.setFoto(Foto);
+	public Rumah(String nama, String status, String provinsi, 
+				 String Alamat, int Harga, String Foto) {
+		this.nama = nama;
+		this.status = status;
+		this.provinsi = provinsi;
+		this.Alamat = Alamat;
+		this.Harga = Harga;
+		this.Foto = Foto;
 	}
 	
 	public ObjectId getId() {
 		return id;
 	}
 	
-	public final void setId(final ObjectId id) {
+	public void setId(final ObjectId id) {
 		this.id = id;
 	}
 
-	public final String getNama() {
+	public String getNama() {
 		return nama;
 	}
 
-	public final void setNama(String nama) {
+	public void setNama(String nama) {
 		this.nama = nama;
 	}
 
-	public final String getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public final void setStatus(String status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public final String getProvinsi() {
+	public String getProvinsi() {
 		return provinsi;
 	}
 
-	public final void setProvinsi(String provinsi) {
+	public void setProvinsi(String provinsi) {
 		this.provinsi = provinsi;
 	}
 
-	public final String getAlamat() {
+	public String getAlamat() {
 		return Alamat;
 	}
 
-	public final void setAlamat(String alamat) {
+	public void setAlamat(String alamat) {
 		Alamat = alamat;
 	}
 
-	public final int getHarga() {
+	public int getHarga() {
 		return Harga;
 	}
 
-	public final void setHarga(int harga) {
+	public void setHarga(int harga) {
 		Harga = harga;
 	}
 
-	public final String getFoto() {
+	public String getFoto() {
 		return Foto;
 	}
 
@@ -98,4 +101,12 @@ public class Rumah {
 	public void setUkuran(Ukuran ukuran) {
 		this.ukuran = ukuran;
 	}
+	
+	public List< Pemilik > getPemilik() {
+        return pemilik;
+    }
+	
+    public void setPemilik( final List< Pemilik > pemilik ) {
+        this.pemilik = pemilik;
+    }
 }

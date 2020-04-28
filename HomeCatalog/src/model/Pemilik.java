@@ -9,6 +9,8 @@ public class Pemilik {
 	String Email;
 	String Password;
 	
+	public Pemilik() {}
+	
 	public Pemilik( String NamaP, String NomorHP, String Email, String Password) {
 		super();
 		this.NamaP= NamaP;
