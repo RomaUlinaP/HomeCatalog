@@ -20,14 +20,16 @@ public class Rumah {
 	
 	public Rumah() {}
 	
-	public Rumah(String nama, String status, String provinsi, 
-				 String Alamat, int Harga, String Foto) {
+	public Rumah(String nama, String status, String provinsi, String Alamat, int Harga, String Foto, 
+			     Ukuran ukuran, Fasilitas fasilitas) {
 		this.nama = nama;
 		this.status = status;
 		this.provinsi = provinsi;
 		this.Alamat = Alamat;
 		this.Harga = Harga;
 		this.Foto = Foto;
+		this.setUkuran(ukuran);
+		this.setFasilitas(fasilitas);
 	}
 	
 	public ObjectId getId() {
