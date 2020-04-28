@@ -9,12 +9,6 @@
 </head>
 <body>
 		<form action="ActionController" method="post">
-		Update name : <input type="text" name="name" value="${student.vname}"> <BR> 
-		Update city : <input type="text" name="city" value="${student.vcity}"> <BR> 
-		Update designation : <input type="text" name="designation" value="${student.vdesignation}"> <BR>
-		Update salary : <input type="text" name="salary" value="${student.vsalary}"> <BR>
-		<input type="hidden" name="row" value="${student.vRow}">
-		<input type="hidden" name="action" value="to_update">
 		<input type="submit" />
 		</form>	
 </body>

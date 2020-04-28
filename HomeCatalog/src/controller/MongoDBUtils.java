@@ -21,12 +21,15 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 
-//import model.Motor;
-//import model.Student;
+import model.Fasilitas;
+import model.Pemilik;
+import model.Rumah;
+import model.Ukuran;
 
 public class MongoDBUtils {	
 	MongoDatabase database;
-	//MongoCollection<Student> collection;	
+	MongoCollection<Pemilik> collection;	
+	MongoCollection<Rumah> RumahCollection;
 	
 	public MongoDBUtils() {
 		// Creating Credentials 
@@ -41,8 +44,39 @@ public class MongoDBUtils {
 		database = mongo.getDatabase("myDb"); 
 		database = database.withCodecRegistry(pojoCodecRegistry);
 		System.out.println("Credentials ::"+ credential);
-		//collection = database.getCollection("studentsCollection", Student.class);
+		collection = database.getCollection("pemilikCollection", Pemilik.class);
+		RumahCollection = database.getCollection("rumahCollection", Rumah.class);
 	}
-
 	
+	public ArrayList<Pemilik> getPemilik() throws IOException {		
+		ArrayList<Pemilik> resultList = new ArrayList<>();
+		FindIterable<Pemilik> pemilikIterable = collection.find();		
+		for (Pemilik pemilik : pemilikIterable) {
+			System.out.println(pemilik);
+			resultList.add(pemilik);
+		}		
+		return resultList;
+	}
+	
+	public ArrayList<Rumah> getMotor() throws IOException {		
+		ArrayList<Rumah> resultList = new ArrayList<>();
+		FindIterable<Rumah> rumahIterable = RumahCollection.find();		
+		for (Rumah rumah : rumahIterable) {
+			System.out.println(rumah);
+			resultList.add(rumah);
+		}		
+		return resultList;
+	}
+	//pemilik meng-insert data rumah
+	public boolean inserting() {
+		return true;
+	}
+	//pemilik update status rumah (terjual/belum terjual)
+	public boolean updateData() {
+		return true;
+	}
+	//sistem mendelete otomatis rumah yang terjual/pemilik menghapus data
+	public boolean delete() {
+		return true;
+	}
 }

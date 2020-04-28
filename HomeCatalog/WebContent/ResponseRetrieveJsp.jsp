@@ -17,9 +17,7 @@
             <c:forEach items="${dataList}" var="dataItem">
             	<form action="ActionController" method="post">
 			        <tr>
-
 			        </tr>
-
 			     </form>
 		    </c:forEach>
         </table>

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form action="ActionController" method="post">
-		Enter name : <input type="text" name="name"> <BR>
+		Enter nama : <input type="text" name="name"> <BR>
 		Enter city : <input type="text" name="city"> <BR>
 		Enter designation : <input type="text" name="designation"> <BR>
 		Enter salary : <input type="text" name="salary"> <BR>
