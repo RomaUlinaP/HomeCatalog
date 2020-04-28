@@ -12,23 +12,14 @@
         <table border="1" cellpadding="5">
             <caption><h2>List of users</h2></caption>
             <tr>
-                <th>Name</th>
-                <th>City</th>
-                <th>Designation</th>
-                <th>Salary</th>
-                <th>Delete</th>
-                <th>Update</th>
+
             </tr>
             <c:forEach items="${dataList}" var="dataItem">
             	<form action="ActionController" method="post">
 			        <tr>
-			            <td>${dataItem.vname}</td>
-			            <td>${dataItem.vcity}</td>
-			            <td>${dataItem.vdesignation}</td>
-			            <td>${dataItem.vsalary}</td>
-			            <td><input type="submit" name="action" value="delete"></td>
+
 			        </tr>
-			        <input type="hidden" name="row" value="${dataItem.vRow}">
+
 			     </form>
 		    </c:forEach>
         </table>

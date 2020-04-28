@@ -12,33 +12,15 @@
 		<form action="ActionController" method="post">
 			<input type="submit" name="action" value="Retrieve">
 			<input type="submit" name="action" value="Input">
-			<input type="submit" name="action" value="Filter">
         </form>
         <table border="1" cellpadding="5">
             <caption><h2>List of users</h2></caption>
             <tr>
-                <th>Name</th>
-                <th>City</th>
-                <th>Designation</th>
-                <th>Salary</th>
-                <th>Delete</th>
-                <th>Update</th>
             </tr>
             <c:forEach items="${dataList}" var="dataItem">
             	<form action="ActionController" method="post">
 			        <tr>
-			            <td>${dataItem.vname}</td>
-			            <td>${dataItem.vcity}</td>
-			            <td>${dataItem.vdesignation}</td>
-			            <td>${dataItem.vsalary}</td>
-			            <td><input type="submit" name="action" value="delete"></td>
-			            <td><input type="hidden" name="action" value="before_update"><input type="submit" value="update"/></td>
 			        </tr>
-			        <input type="hidden" name="row" value="${dataItem.kode}">
-			        <input type="hidden" name="name" value="${dataItem.vname}">
-			        <input type="hidden" name="city" value="${dataItem.vcity}">
-			        <input type="hidden" name="designation" value="${dataItem.vdesignation}">
-			        <input type="hidden" name="salary" value="${dataItem.vsalary}">
 			     </form>
 		    </c:forEach>
         </table>
