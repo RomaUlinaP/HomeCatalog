@@ -1,7 +1,9 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 public class Rumah {
-	String id;
+	private ObjectId id;
 	String nama;
 	String status;
 	String provinsi;
@@ -15,9 +17,8 @@ public class Rumah {
 		super();
 	}
 	
-	public Rumah(String id, String nama, String status, String provinsi, String Alamat, int Harga, int ukuran, String fasilitas, String Foto) {
+	public Rumah(String nama, String status, String provinsi, String Alamat, int Harga, int ukuran, String fasilitas, String Foto) {
 		super();
-		this.setIdRumah(id);
 		this.setNama(nama);
 		this.setStatus(status);
 		this.setProvinsi(provinsi);
@@ -28,10 +29,11 @@ public class Rumah {
 		this.setFoto(Foto);
 	}
 	
-	public final String getIdRumah() {
+	public ObjectId getId() {
 		return id;
 	}
-	public final void setIdRumah(String id) {
+	
+	public final void setId(final ObjectId id) {
 		this.id = id;
 	}
 

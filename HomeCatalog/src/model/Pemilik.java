@@ -1,27 +1,28 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 public class Pemilik {
-	String IdP;
+	private ObjectId id;
 	String NamaP;
 	String NomorHP;
 	String Email;
 	String Password;
 	
-	public Pemilik(String IdP, String NamaP, String NomorHP, String Email, String Password) {
+	public Pemilik( String NamaP, String NomorHP, String Email, String Password) {
 		super();
-		this.IdP= IdP;
 		this.NamaP= NamaP;
 		this.NomorHP = NomorHP;
 		this. Email= Email;
 		this.Password = Password;
 	}
 	
-	public final String getIdP() {
-		return IdP;
+	public ObjectId getId() {
+		return id;
 	}
 	
-	public final void setIdP(String IdP) {
-		this.IdP = IdP;
+	public final void setId(final ObjectId id) {
+		this.id = id;
 	}
 	
 	public final String getNamaP() {
