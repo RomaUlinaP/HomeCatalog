@@ -3,61 +3,54 @@ package model;
 import org.bson.types.ObjectId;
 
 public class Pemilik {
-	private ObjectId id;
-	String NamaP;
-	String NomorHP;
-	String Email;
-	String Password;
+	private String id;
+	String namaP;
+	String nomorHP;
+	String email;
 	
-	public Pemilik() {}
-	
-	public Pemilik( String NamaP, String NomorHP, String Email, String Password) {
+	public Pemilik() {
 		super();
-		this.NamaP= NamaP;
-		this.NomorHP = NomorHP;
-		this. Email= Email;
-		this.Password = Password;
 	}
 	
-	public ObjectId getId() {
+	public Pemilik(String id, String NamaP, String NomorHP, String Email) {
+		super();
+		this.namaP= NamaP;
+		this.nomorHP = NomorHP;
+		this.email= Email;
+		this.setId(id);
+	}
+
+
+	public String getId() {
 		return id;
 	}
-	
-	public final void setId(final ObjectId id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
 	
 	public final String getNamaP() {
-		return NamaP;
+		return namaP;
 	}
 	
 	public final void setNamaP(String NamaP) {
-		this.NamaP = NamaP;
+		this.namaP = NamaP;
 	}
 	
 	public final String getNomorHP() {
-		return NomorHP;
+		return nomorHP;
 	}
 	
 	public final void setNomorHP(String NomorHP) {
-		this.NomorHP = NomorHP;
+		this.nomorHP = NomorHP;
 	}
 	
 	public final String getEmail() {
-		return Email;
+		return email;
 	}
 	
 	public final void setEmail(String Email) {
-		this.Email = Email;
+		this.email = Email;
 	}
-	
-	public final String getPassword() {
-		return Password;
-	}
-	
-	public final void setPassword(String Password) {
-		this.Password = Password;
-	}
-	
 
 }

@@ -1,30 +1,30 @@
 package model;
 
 public class Ukuran {
-	int Panjang;
-	int Lebar;
+	int panjang;
+	int lebar;
 	
 	public Ukuran() {}
 	
-	public  Ukuran(int Panjang, int Lebar) {
+	public  Ukuran(int panjang, int lebar) {
 		super();
-		this.Panjang = Panjang;
-		this.Lebar = Lebar;
+		this.panjang = panjang;
+		this.lebar = lebar;
 	}
 	public final int getPanjang() {
-		return Panjang;
+		return panjang;
 	}
 
-	public final void setPanjang(int Panjang) {
-		this.Panjang = Panjang;
+	public final void setPanjang(int panjang) {
+		this.panjang = panjang;
 	}
 	
 	public final int getLebar() {
-		return Lebar;
+		return lebar;
 	}
 
-	public final void setLebar(int Lebar) {
-		this.Lebar = Lebar;
+	public final void setLebar(int lebar) {
+		this.lebar = lebar;
 	}
 	
 }

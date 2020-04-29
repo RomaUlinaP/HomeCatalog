@@ -28,7 +28,7 @@ import model.Ukuran;
 
 public class MongoDBUtils {	
 	MongoDatabase database;
-	MongoCollection<Pemilik> collection;	
+	MongoCollection<Pemilik> PemilikCollection;	
 	MongoCollection<Rumah> RumahCollection;
 	
 	public MongoDBUtils() {
@@ -44,13 +44,13 @@ public class MongoDBUtils {
 		database = mongo.getDatabase("myDb"); 
 		database = database.withCodecRegistry(pojoCodecRegistry);
 		System.out.println("Credentials ::"+ credential);
-		collection = database.getCollection("pemilikCollection", Pemilik.class);
+		PemilikCollection = database.getCollection("pemilikCollection", Pemilik.class);
 		RumahCollection = database.getCollection("rumahCollection", Rumah.class);
 	}
 	
 	public ArrayList<Pemilik> getPemilik() throws IOException {		
 		ArrayList<Pemilik> resultList = new ArrayList<>();
-		FindIterable<Pemilik> pemilikIterable = collection.find();		
+		FindIterable<Pemilik> pemilikIterable = PemilikCollection.find();		
 		for (Pemilik pemilik : pemilikIterable) {
 			System.out.println(pemilik);
 			resultList.add(pemilik);
@@ -68,7 +68,27 @@ public class MongoDBUtils {
 		return resultList;
 	}
 	//pemilik meng-insert data rumah
-	public boolean inserting() {
+	public boolean inserting(String nama, String status, String provinsi, String alamat, 
+						     int harga, String namaP, String nomorHP, String email) {
+		String idRumah = new ObjectId().toString();
+		try {
+			//cek apakah nomorHP sudah ada di idPemilikList
+			//jika ada, cari id
+			//jika tidak, buat idpemilik baru
+			List<String> idPemilikList = new ArrayList<String>();
+			String idPemilik = new ObjectId().toString();
+			idPemilikList.add(idPemilik);
+			Pemilik pemilik = new Pemilik(idPemilik, namaP, nomorHP, email);
+			PemilikCollection.insertOne(pemilik);
+			
+			Rumah rumah = new Rumah(nama, status, provinsi, alamat, harga, idPemilikList);
+			rumah.setId(idRumah);
+			RumahCollection.insertOne(rumah);
+			System.out.println("data inserted");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 	//pemilik update status rumah (terjual/belum terjual)

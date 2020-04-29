@@ -2,44 +2,45 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bson.types.ObjectId;
 
 public class Rumah {
-	private ObjectId id;
+	private String id;
 	String nama;
 	String status;
 	String provinsi;
-	String Alamat;
-	int Harga;
+	String alamat;
+	int harga;
 	private Ukuran ukuran;
 	private Fasilitas fasilitas;
+	//String Foto;
 	
-	List<Pemilik> pemilik = new ArrayList<>();
-	String Foto; //
+	List<String> idPemilikList = new ArrayList<>();
+	List<Pemilik> pemilikList = new ArrayList<>();
 	
-	public Rumah() {}
 	
-	public Rumah(String nama, String status, String provinsi, String Alamat, int Harga, String Foto, 
-			     Ukuran ukuran, Fasilitas fasilitas) {
+	public Rumah() {
+		super();
+	}
+	
+	public Rumah(String nama, String status, String provinsi, String alamat, int harga, 
+			     List<String> idPemilikList) {
 		this.nama = nama;
 		this.status = status;
 		this.provinsi = provinsi;
-		this.Alamat = Alamat;
-		this.Harga = Harga;
-		this.Foto = Foto;
-		this.setUkuran(ukuran);
-		this.setFasilitas(fasilitas);
+		this.alamat = alamat;
+		this.harga = harga;
+		this.idPemilikList = idPemilikList;
 	}
 	
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
-	
-	public void setId(final ObjectId id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
-
+	
 	public String getNama() {
 		return nama;
 	}
@@ -65,30 +66,43 @@ public class Rumah {
 	}
 
 	public String getAlamat() {
-		return Alamat;
+		return alamat;
 	}
 
 	public void setAlamat(String alamat) {
-		Alamat = alamat;
+		alamat = alamat;
 	}
 
 	public int getHarga() {
-		return Harga;
+		return harga;
 	}
 
 	public void setHarga(int harga) {
-		Harga = harga;
+		harga = harga;
+	}
+	
+	public List<String> getIdPemilikList() {
+		return idPemilikList;
 	}
 
-	public String getFoto() {
-		return Foto;
+	public void setIdPemilikList(List<String> idPemilikList) {
+		this.idPemilikList = idPemilikList;
 	}
 
-	public void setFoto(String foto) {
-		Foto = foto;
+	public List<Pemilik> gettingPemilikList() {
+		return pemilikList;
 	}
 
-	public Fasilitas getFasilitas() {
+	public void settingPemilikList(List<Pemilik> pemilikList) {
+		this.pemilikList = pemilikList;
+	}
+	
+	public void addPemilik(Pemilik pemilik) {
+		this.pemilikList.add(pemilik);
+		System.out.println("Finish insert data");
+	}
+    
+    public Fasilitas getFasilitas() {
 		return fasilitas;
 	}
 
@@ -103,12 +117,5 @@ public class Rumah {
 	public void setUkuran(Ukuran ukuran) {
 		this.ukuran = ukuran;
 	}
-	
-	public List< Pemilik > getPemilik() {
-        return pemilik;
-    }
-	
-    public void setPemilik( final List< Pemilik > pemilik ) {
-        this.pemilik = pemilik;
-    }
+
 }
