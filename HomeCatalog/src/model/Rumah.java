@@ -15,22 +15,17 @@ public class Rumah {
 	private Fasilitas fasilitas;
 	//String Foto;
 	
-	List<String> idPemilikList = new ArrayList<>();
-	List<Pemilik> pemilikList = new ArrayList<>();
-	
 	
 	public Rumah() {
 		super();
 	}
 	
-	public Rumah(String nama, String status, String provinsi, String alamat, int harga, 
-			     List<String> idPemilikList) {
+	public Rumah(String nama, String status, String provinsi, String alamat, int harga) {
 		this.nama = nama;
 		this.status = status;
 		this.provinsi = provinsi;
 		this.alamat = alamat;
 		this.harga = harga;
-		this.idPemilikList = idPemilikList;
 	}
 	
 	public String getId() {
@@ -79,27 +74,6 @@ public class Rumah {
 
 	public void setHarga(int harga) {
 		harga = harga;
-	}
-	
-	public List<String> getIdPemilikList() {
-		return idPemilikList;
-	}
-
-	public void setIdPemilikList(List<String> idPemilikList) {
-		this.idPemilikList = idPemilikList;
-	}
-
-	public List<Pemilik> gettingPemilikList() {
-		return pemilikList;
-	}
-
-	public void settingPemilikList(List<Pemilik> pemilikList) {
-		this.pemilikList = pemilikList;
-	}
-	
-	public void addPemilik(Pemilik pemilik) {
-		this.pemilikList.add(pemilik);
-		System.out.println("Finish insert data");
 	}
     
     public Fasilitas getFasilitas() {

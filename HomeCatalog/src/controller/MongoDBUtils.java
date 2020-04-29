@@ -70,20 +70,20 @@ public class MongoDBUtils {
 	//pemilik meng-insert data rumah
 	public boolean inserting(String nama, String status, String provinsi, String alamat, 
 						     int harga, String namaP, String nomorHP, String email) {
-		String idRumah = new ObjectId().toString();
+		String idPemilik = new ObjectId().toString();
 		try {
 			//cek apakah nomorHP sudah ada di idPemilikList
 			//jika ada, cari id
 			//jika tidak, buat idpemilik baru
-			List<String> idPemilikList = new ArrayList<String>();
-			String idPemilik = new ObjectId().toString();
-			idPemilikList.add(idPemilik);
-			Pemilik pemilik = new Pemilik(idPemilik, namaP, nomorHP, email);
-			PemilikCollection.insertOne(pemilik);
-			
-			Rumah rumah = new Rumah(nama, status, provinsi, alamat, harga, idPemilikList);
-			rumah.setId(idRumah);
+			List<String> idRumahList = new ArrayList<String>();
+			String idRumah = new ObjectId().toString();
+			idRumahList.add(idRumah);
+			Rumah rumah = new Rumah(nama, status, provinsi, alamat, harga);
 			RumahCollection.insertOne(rumah);
+			
+			Pemilik pemilik = new Pemilik(idPemilik, namaP, nomorHP, email, idRumahList);
+			pemilik.setId(idPemilik);
+			PemilikCollection.insertOne(pemilik);
 			System.out.println("data inserted");
 		} catch (Exception e) {
 			e.printStackTrace();

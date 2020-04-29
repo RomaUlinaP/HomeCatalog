@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 
 public class Pemilik {
@@ -8,16 +11,21 @@ public class Pemilik {
 	String nomorHP;
 	String email;
 	
+	List<String> idRumahList = new ArrayList<>();
+	List<Rumah> rumahList = new ArrayList<>();
+	
 	public Pemilik() {
 		super();
 	}
 	
-	public Pemilik(String id, String NamaP, String NomorHP, String Email) {
+	public Pemilik(String id, String NamaP, String NomorHP, String Email, 
+			       List<String> idRumahList) {
 		super();
 		this.namaP= NamaP;
 		this.nomorHP = NomorHP;
 		this.email= Email;
 		this.setId(id);
+		this.idRumahList = idRumahList;
 	}
 
 
@@ -52,5 +60,25 @@ public class Pemilik {
 	public final void setEmail(String Email) {
 		this.email = Email;
 	}
+	
+	public List<String> getIdRumahList() {
+		return idRumahList;
+	}
 
+	public void setIdRumahList(List<String> idRumahList) {
+		this.idRumahList = idRumahList;
+	}
+
+	public List<Rumah> gettingRumahList() {
+		return rumahList;
+	}
+
+	public void settingRumahList(List<Rumah> rumahList) {
+		this.rumahList = rumahList;
+	}
+	
+	public void addRumah(Rumah rumah) {
+		this.rumahList.add(rumah);
+		System.out.println("Finish insert data");
+	}
 }
