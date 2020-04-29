@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
 
+import com.mongodb.DBRef;
+
 public class Rumah {
 	private String id;
 	String nama;
 	String status;
 	String provinsi;
 	String alamat;
+    private DBRef pemilik;
 	int harga;
 	private Ukuran ukuran;
 	private Fasilitas fasilitas;
@@ -20,14 +23,23 @@ public class Rumah {
 		super();
 	}
 	
-	public Rumah(String nama, String status, String provinsi, String alamat, int harga) {
+	public Rumah(String nama, String status, String provinsi, String alamat, int harga, 
+				 Ukuran ukuran, Fasilitas fasilitas, DBRef pemilik) {
 		this.nama = nama;
 		this.status = status;
 		this.provinsi = provinsi;
 		this.alamat = alamat;
 		this.harga = harga;
+		this.setPemilik(pemilik);
+		this.setUkuran(ukuran);
+		this.setFasilitas(fasilitas);
 	}
 	
+	private void setPemilik(Object myDbRef) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -90,6 +102,14 @@ public class Rumah {
 
 	public void setUkuran(Ukuran ukuran) {
 		this.ukuran = ukuran;
+	}
+
+	public DBRef getPemilik() {
+		return pemilik;
+	}
+
+	public void setPemilik(DBRef pemilik) {
+		this.pemilik = pemilik;
 	}
 
 }

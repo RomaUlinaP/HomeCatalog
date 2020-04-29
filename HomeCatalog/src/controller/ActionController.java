@@ -39,8 +39,17 @@ public class ActionController extends HttpServlet {
 			String namaP = request.getParameter("NamaP");
 			String nomorHP = request.getParameter("NomorHP");
 			String email = request.getParameter("Email");
+			int panjang = Integer.parseInt(request.getParameter("Panjang"));
+			int lebar = Integer.parseInt(request.getParameter("Lebar"));
+			int kamarTidur = Integer.parseInt(request.getParameter("KamarTidur"));
+			int kamarMandi = Integer.parseInt(request.getParameter("KamarMandi"));
+			int garasi = Integer.parseInt(request.getParameter("Garasi"));
+			int dapur = Integer.parseInt(request.getParameter("Dapur"));
+			int halamanBelakang = Integer.parseInt(request.getParameter("HalamanBelakang"));
+			Fasilitas fasilitas = new Fasilitas(kamarTidur, kamarMandi, garasi, dapur, halamanBelakang);
+			Ukuran ukuran = new Ukuran(panjang, lebar);
 			boolean result= mongodbUtils.inserting(nama, status, provinsi, alamat, harga, 
-												   namaP, nomorHP, email);
+												   namaP, nomorHP, email, ukuran, fasilitas);
 			if(result) {
 				showAllData(request, response, mongodbUtils);
 			}else {
@@ -61,5 +70,21 @@ public class ActionController extends HttpServlet {
 	
 	public void showAllData(HttpServletRequest request, HttpServletResponse response,
 			MongoDBUtils mongodbUtils) {
+		try {
+			ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilik();
+			ArrayList<Rumah> listRumah = mongodbUtils.getRumah();
+			for(int i=0; i<listPemilik.size();i++) {
+				List<String> idRumah = listPemilik.get(i).getIdRumahList();
+				for(int j=0; j<listRumah.size();j++) {
+					if(idRumah.contains(listRumah.get(j).getId())) {
+						listPemilik.get(i).addRumah(listRumah.get(j));
+					}
+				}
+			}
+			request.setAttribute("dataList", listPemilik);
+			request.getRequestDispatcher("/main.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

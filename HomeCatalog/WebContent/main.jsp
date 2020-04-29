@@ -42,13 +42,13 @@
 			            <td>${dataItem.alamat}</td>
 			            <td>${dataItem.provinsi}</td>
 			            <td>${dataItem.harga}</td>
-			            <td>${dataItem.panjang}</td>
-			            <td>${dataItem.lebar}</td>
-			            <td>${dataItem.kamarTidur}</td>
-			            <td>${dataItem.kamarMandi}</td>
-			            <td>${dataItem.garasi}</td>
-			            <td>${dataItem.dapur}</td>
-			            <td>${dataItem.halamanBelakang}</td>
+			            <td>${dataItem.getUkuran().getPanjang()}</td>
+			            <td>${dataItem.getUkuran().getLebar()}</td>
+			            <td>${dataItem.getFasilitas().getKamarTidur()}</td>
+			            <td>${dataItem.getFasilitas().getKamarMandi()}</td>
+			            <td>${dataItem.getFasilitas().getGarasi()}</td>
+			            <td>${dataItem.getFasilitas().getDapur()}</td>
+			            <td>${dataItem.getFasilitas().getHalamanBelakang()}</td>
 			            <td>${dataItem.namaP}</td>
 			            <td>${dataItem.nomorHP}</td>
 			            <td>${dataItem.email}</td>
@@ -61,13 +61,6 @@
 			        <input type="hidden" name="Alamat"     		value="${dataItem.alamat}">
 			        <input type="hidden" name="Provinsi"     	value="${dataItem.provinsi}">
 			        <input type="hidden" name="Harga"      		value="${dataItem.harga}">
-			        <input type="hidden" name="Panjang"    		value="${dataItem.panjang}">
-			        <input type="hidden" name="lebar"      		value="${dataItem.lebar}">
-			        <input type="hidden" name="KamarTidur" 		value="${dataItem.kamarTidur}">
-			        <input type="hidden" name="KamarMandi" 		value="${dataItem.kamarMandi}">
-			        <input type="hidden" name="Garasi"     		value="${dataItem.garasi}">
-			        <input type="hidden" name="Dapur"      		value="${dataItem.dapur}">
-			        <input type="hidden" name="HalamanBelakang" value="${dataItem.halamanBelakang}">
 			        <input type="hidden" name="NamaPemilik" 	value="${dataItem.namaP}">
 			        <input type="hidden" name="NomorHP" 		value="${dataItem.nomorHP}">
 			        <input type="hidden" name="Email" 			value="${dataItem.email}">

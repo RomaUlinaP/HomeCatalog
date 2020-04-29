@@ -13,6 +13,7 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;
 
+import com.mongodb.DBRef;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
@@ -58,7 +59,7 @@ public class MongoDBUtils {
 		return resultList;
 	}
 	
-	public ArrayList<Rumah> getMotor() throws IOException {		
+	public ArrayList<Rumah> getRumah() throws IOException {		
 		ArrayList<Rumah> resultList = new ArrayList<>();
 		FindIterable<Rumah> rumahIterable = RumahCollection.find();		
 		for (Rumah rumah : rumahIterable) {
@@ -69,7 +70,8 @@ public class MongoDBUtils {
 	}
 	//pemilik meng-insert data rumah
 	public boolean inserting(String nama, String status, String provinsi, String alamat, 
-						     int harga, String namaP, String nomorHP, String email) {
+						     int harga, String namaP, String nomorHP, String email, 
+						     Ukuran ukuran, Fasilitas fasilitas) {
 		String idPemilik = new ObjectId().toString();
 		try {
 			//cek apakah nomorHP sudah ada di idPemilikList
@@ -78,9 +80,10 @@ public class MongoDBUtils {
 			List<String> idRumahList = new ArrayList<String>();
 			String idRumah = new ObjectId().toString();
 			idRumahList.add(idRumah);
-			Rumah rumah = new Rumah(nama, status, provinsi, alamat, harga);
+			DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
+			Rumah rumah = new Rumah(nama, status, provinsi, alamat, harga, ukuran, fasilitas, myDbRef);
 			RumahCollection.insertOne(rumah);
-			
+
 			Pemilik pemilik = new Pemilik(idPemilik, namaP, nomorHP, email, idRumahList);
 			pemilik.setId(idPemilik);
 			PemilikCollection.insertOne(pemilik);

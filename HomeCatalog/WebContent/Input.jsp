@@ -14,7 +14,7 @@
 		Enter Provinsi 						:<input type="text" name="Provinsi"> 		<BR>
 		Enter Harga 						:<input type="text" name="Harga"> 			<BR>
 		Enter Panjang (m)					:<input type="text" name="Panjang"> 		<BR>
-		Enter Lebar (m)						:<input type="text" name="lebar"> 			<BR>
+		Enter Lebar (m)						:<input type="text" name="Lebar"> 			<BR>
 		Enter Jumlah Kamar Tidur 			:<input type="text" name="KamarTidur"> 		<BR>
 		Enter Jumlah Kamar Mandi 			:<input type="text" name="KamarMandi"> 		<BR>
 		Enter Jumlah Garasi 				:<input type="text" name="Garasi"> 			<BR>
