@@ -81,4 +81,5 @@ public class Pemilik {
 		this.rumahList.add(rumah);
 		System.out.println("Finish insert data");
 	}
+	
 }

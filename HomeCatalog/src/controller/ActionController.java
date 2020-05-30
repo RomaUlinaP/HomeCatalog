@@ -32,7 +32,7 @@ public class ActionController extends HttpServlet {
 		}else if("insert".equals(action)){
 			// TODO
 			String nama = request.getParameter("Nama");
-			String status = request.getParameter("Status");
+			String status = "Belum Terjual";
 			String provinsi = request.getParameter("Provinsi");
 			String alamat = request.getParameter("Alamat");
 			int harga = Integer.parseInt(request.getParameter("Harga"));
@@ -51,7 +51,8 @@ public class ActionController extends HttpServlet {
 			boolean result= mongodbUtils.inserting(nama, status, provinsi, alamat, harga, 
 												   namaP, nomorHP, email, ukuran, fasilitas);
 			if(result) {
-				showAllData(request, response, mongodbUtils);
+				//showAllData(request, response, mongodbUtils);
+				System.out.println("done");
 			}else {
 				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
 				rd.forward(request, response);

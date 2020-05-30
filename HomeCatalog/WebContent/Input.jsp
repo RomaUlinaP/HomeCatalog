@@ -9,7 +9,6 @@
 <body>
 	<form action="ActionController" method="post">
 		Enter Nama Rumah					:<input type="text" name="NamaRumah"> 		<BR>
-		Enter Status (Belum Terjual/Terjual):<input type="text" name="Status"> 			<BR>
 		Enter Alamat 						:<input type="text" name="Alamat"> 			<BR>
 		Enter Provinsi 						:<input type="text" name="Provinsi"> 		<BR>
 		Enter Harga 						:<input type="text" name="Harga"> 			<BR>

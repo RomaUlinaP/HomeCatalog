@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import com.mongodb.DBRef;
 
 public class Rumah {
+	//private ObjectId id;
 	private String id;
 	String nama;
 	String status;
@@ -23,8 +24,9 @@ public class Rumah {
 		super();
 	}
 	
-	public Rumah(String nama, String status, String provinsi, String alamat, int harga, 
+	public Rumah(String id, String nama, String status, String provinsi, String alamat, int harga, 
 				 Ukuran ukuran, Fasilitas fasilitas, DBRef pemilik) {
+		this.setId(id);
 		this.nama = nama;
 		this.status = status;
 		this.provinsi = provinsi;
@@ -39,7 +41,7 @@ public class Rumah {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -111,5 +113,7 @@ public class Rumah {
 	public void setPemilik(DBRef pemilik) {
 		this.pemilik = pemilik;
 	}
+
+
 
 }
