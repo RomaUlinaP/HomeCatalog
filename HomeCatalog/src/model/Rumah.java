@@ -13,7 +13,7 @@ public class Rumah {
 	String status;
 	String provinsi;
 	String alamat;
-    private DBRef pemilik;
+    private String idPemilik;
 	int harga;
 	private Ukuran ukuran;
 	private Fasilitas fasilitas;
@@ -25,14 +25,14 @@ public class Rumah {
 	}
 	
 	public Rumah(String id, String nama, String status, String provinsi, String alamat, int harga, 
-				 Ukuran ukuran, Fasilitas fasilitas, DBRef pemilik) {
+				 Ukuran ukuran, Fasilitas fasilitas, String idPemilik) {
 		this.setId(id);
 		this.nama = nama;
 		this.status = status;
 		this.provinsi = provinsi;
 		this.alamat = alamat;
 		this.harga = harga;
-		this.setPemilik(pemilik);
+		this.idPemilik = idPemilik;
 		this.setUkuran(ukuran);
 		this.setFasilitas(fasilitas);
 	}
@@ -106,14 +106,12 @@ public class Rumah {
 		this.ukuran = ukuran;
 	}
 
-	public DBRef getPemilik() {
-		return pemilik;
+	public String getIdPemilik() {
+		return idPemilik;
 	}
 
-	public void setPemilik(DBRef pemilik) {
-		this.pemilik = pemilik;
+	public void setIdPemilik(String idPemilik) {
+		this.idPemilik = idPemilik;
 	}
-
-
 
 }

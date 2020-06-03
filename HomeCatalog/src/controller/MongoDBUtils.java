@@ -94,8 +94,8 @@ public class MongoDBUtils {
 		    	System.out.println("Menambah Data Rumah");
 		    	String idRumah = new ObjectId().toString();
 		    	idRumahList.add(idRumah);
-		    	DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
-		    	Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, myDbRef);
+		    	//DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
+		    	Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, idPemilik);
 				RumahCollection.insertOne(rumah);
 				//Menambahkan list rumah pada data pemilik
 				PemilikCollection.updateOne(eq("_id", idPemilik), Updates.addToSet("idRumahList", idRumah));
@@ -109,8 +109,8 @@ public class MongoDBUtils {
 				pemilik.setId(idPemilik);
 				PemilikCollection.insertOne(pemilik);
 				System.out.println("Menambah Data Rumah");
-				DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
-				Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, myDbRef);
+				//DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
+				Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, idPemilik);
 				RumahCollection.insertOne(rumah);
 		    }
 				System.out.println("Data Tersimpan");
