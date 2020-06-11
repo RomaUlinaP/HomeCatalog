@@ -10,7 +10,6 @@ public class Pemilik {
 	String namaP;
 	String nomorHP;
 	String email;
-	
 	List<String> idRumahList = new ArrayList<>();
 	List<Rumah> rumahList = new ArrayList<>();
 	
@@ -79,7 +78,13 @@ public class Pemilik {
 	
 	public void addRumah(Rumah rumah) {
 		this.rumahList.add(rumah);
-		System.out.println("Finish insert data");
 	}
 	
+	public final List<String> tampilNama(){
+		List<String> nama = new ArrayList<String>();
+		for(int i =0; i<gettingRumahList().size(); i++){
+			nama.add(gettingRumahList().get(i).getNama());
+		}
+		return nama;
+	}
 }

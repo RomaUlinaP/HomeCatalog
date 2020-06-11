@@ -1,24 +1,25 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBRef;
 
+import controller.MongoDBUtils;
+
 public class Rumah {
-	//private ObjectId id;
 	private String id;
 	String nama;
 	String status;
 	String provinsi;
 	String alamat;
-    private String idPemilik;
+	String idPemilik;
 	int harga;
 	private Ukuran ukuran;
 	private Fasilitas fasilitas;
-	//String Foto;
-	
 	
 	public Rumah() {
 		super();
@@ -26,6 +27,7 @@ public class Rumah {
 	
 	public Rumah(String id, String nama, String status, String provinsi, String alamat, int harga, 
 				 Ukuran ukuran, Fasilitas fasilitas, String idPemilik) {
+
 		this.setId(id);
 		this.nama = nama;
 		this.status = status;
@@ -35,82 +37,84 @@ public class Rumah {
 		this.idPemilik = idPemilik;
 		this.setUkuran(ukuran);
 		this.setFasilitas(fasilitas);
+		//setFoto(o);
 	}
 	
-	private void setPemilik(Object myDbRef) {
+	private final void setPemilik(Object myDbRef) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	public String getId() {
+	public final String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public final void setId(String id) {
 		this.id = id;
 	}
 	
-	public String getNama() {
+	public final String getNama() {
 		return nama;
 	}
 
-	public void setNama(String nama) {
+	public final void setNama(String nama) {
 		this.nama = nama;
 	}
 
-	public String getStatus() {
+	public final String getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public final void setStatus(String status) {
 		this.status = status;
 	}
 
-	public String getProvinsi() {
+	public final String getProvinsi() {
 		return provinsi;
 	}
 
-	public void setProvinsi(String provinsi) {
+	public final void setProvinsi(String provinsi) {
 		this.provinsi = provinsi;
 	}
 
-	public String getAlamat() {
+	public final String getAlamat() {
 		return alamat;
 	}
 
-	public void setAlamat(String alamat) {
-		alamat = alamat;
+	public final void setAlamat(String alamat) {
+		this.alamat = alamat;
 	}
 
-	public int getHarga() {
+	public final int getHarga() {
 		return harga;
 	}
 
-	public void setHarga(int harga) {
-		harga = harga;
+	public final void setHarga(int harga) {
+		this.harga = harga;
 	}
     
-    public Fasilitas getFasilitas() {
+    public final Fasilitas getFasilitas() {
 		return fasilitas;
 	}
 
-	public void setFasilitas(Fasilitas fasilitas) {
+	public final void setFasilitas(Fasilitas fasilitas) {
 		this.fasilitas = fasilitas;
 	}
 
-	public Ukuran getUkuran() {
+	public final Ukuran getUkuran() {
 		return ukuran;
 	}
 
-	public void setUkuran(Ukuran ukuran) {
+	public final void setUkuran(Ukuran ukuran) {
 		this.ukuran = ukuran;
 	}
 
-	public String getIdPemilik() {
+
+	public final String getIdPemilik() {
 		return idPemilik;
 	}
 
-	public void setIdPemilik(String idPemilik) {
+	public final void setIdPemilik(String idPemilik) {
 		this.idPemilik = idPemilik;
 	}
 
