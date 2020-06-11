@@ -31,6 +31,12 @@ import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.DeleteResult;
 
+import java.io.File;
+import java.io.FileInputStream;
+ 
+import org.bson.types.Binary;
+import com.mongodb.DBCollection;
+
 import model.Fasilitas;
 import model.Pemilik;
 import model.Rumah;
@@ -94,8 +100,12 @@ public class MongoDBUtils {
 		    	System.out.println("Menambah Data Rumah");
 		    	String idRumah = new ObjectId().toString();
 		    	idRumahList.add(idRumah);
+<<<<<<< Updated upstream
 		    	DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
 		    	Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, myDbRef);
+=======
+	            Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, idPemilik);
+>>>>>>> Stashed changes
 				RumahCollection.insertOne(rumah);
 				//Menambahkan list rumah pada data pemilik
 				PemilikCollection.updateOne(eq("_id", idPemilik), Updates.addToSet("idRumahList", idRumah));
@@ -110,7 +120,11 @@ public class MongoDBUtils {
 				PemilikCollection.insertOne(pemilik);
 				System.out.println("Menambah Data Rumah");
 				DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
+<<<<<<< Updated upstream
 				Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, myDbRef);
+=======
+				Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, idPemilik);
+>>>>>>> Stashed changes
 				RumahCollection.insertOne(rumah);
 		    }
 				System.out.println("Data Tersimpan");
@@ -122,18 +136,60 @@ public class MongoDBUtils {
 	}
 	
 	//pemilik update status rumah (terjual/belum terjual)
-	public boolean updateData() {
+	public boolean updateData(String namaP, String nomorHP, String email) {
+		try {
+			long count = PemilikCollection.countDocuments(new BsonDocument("nomorHP", new BsonString(nomorHP)));
+		    if (count > 0){
+		    	System.out.println("Data Pemilik Sudah Ada");
+		    	/*1. tampilkan data rumah, 
+		    	2. klik edit pada data rumah
+		    	3. tampilkan spesifikasi data rumah 
+		    	4. ubah data
+		    	5. simpan (kalo status di ubah menjadi terjual, hapus data
+		    	6. kembali ke tampilan 1
+		    	*/
+		    }else{
+		    	System.out.println("Data Pemilik Belum Terdaftar");
+		    }
+				System.out.println("Data Tersimpan");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 	
-	//sistem mendelete otomatis rumah yang terjual/pemilik menghapus data
 	public boolean delete() {
+		
+		return true;
+	}
+	
+	public boolean search(String namaP, String nomorHP, String email) {
+		try {
+			long count = PemilikCollection.countDocuments(new BsonDocument("nomorHP", new BsonString(nomorHP)));
+		    if (count > 0){
+		    	System.out.println("Data Pemilik Sudah Ada");
+		    	
+		    }else{
+		    	//jsp kembali tulisan "tidak ada data penjual"
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 	
 	public Pemilik findFieldById(String nomorHP) throws IOException {
 		Pemilik p = PemilikCollection
     			.find(new BasicDBObject("nomorHP", nomorHP))
+    			.projection(Projections.fields(Projections.include("id"))).first();
+    	return p;
+	}
+	
+	public Pemilik findFieldById2(String idPemilik) throws IOException {
+		Pemilik p = PemilikCollection
+    			.find(new BasicDBObject("id", idPemilik))
     			.projection(Projections.fields(Projections.include("id"))).first();
     	return p;
 	}

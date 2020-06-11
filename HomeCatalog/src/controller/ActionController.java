@@ -17,7 +17,7 @@ import model.Ukuran;
 
 public class ActionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	public ActionController() {
 		super();
 	}
@@ -31,7 +31,7 @@ public class ActionController extends HttpServlet {
 			showAllData(request, response, mongodbUtils);
 		}else if("insert".equals(action)){
 			// TODO
-			String nama = request.getParameter("Nama");
+			String nama = request.getParameter("NamaRumah");
 			String status = "Belum Terjual";
 			String provinsi = request.getParameter("Provinsi");
 			String alamat = request.getParameter("Alamat");
@@ -51,7 +51,7 @@ public class ActionController extends HttpServlet {
 			boolean result= mongodbUtils.inserting(nama, status, provinsi, alamat, harga, 
 												   namaP, nomorHP, email, ukuran, fasilitas);
 			if(result) {
-				//showAllData(request, response, mongodbUtils);
+				showAllData(request, response, mongodbUtils);
 				System.out.println("done");
 			}else {
 				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
@@ -64,8 +64,36 @@ public class ActionController extends HttpServlet {
 			rd.forward(request, response);
 		}else if("before_update".equals(action)) {
 
-		}else if("to_update".equals(action)) {
-		
+		}else if("update".equals(action)) {
+			String namaP = request.getParameter("NamaP");
+			String nomorHP = request.getParameter("NomorHP");
+			String email = request.getParameter("Email");
+			boolean result= mongodbUtils.updateData(namaP, nomorHP, email);
+			if(result) {
+				//showAllData(request, response, mongodbUtils);
+				System.out.println("done");
+			}else {
+				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
+			}
+		}else if("search".equals(action)) {
+			String namaP = request.getParameter("NamaP");
+			String nomorHP = request.getParameter("NomorHP");
+			String email = request.getParameter("Email");
+			System.out.println("a :"+namaP + nomorHP + email);
+			boolean result= mongodbUtils.search(namaP, nomorHP, email);
+			/*if(result) {
+				//showAllData(request, response, mongodbUtils);
+				System.out.println("done");
+			}else {
+				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
+			}*/
+		}else if("TampilPemilik".equals(action)){
+			String idPemilik = request.getParameter("idPemilik");
+			System.out.println("id:"+idPemilik);
+			Pemilik p = mongodbUtils.findFieldById2(idPemilik);
+			showDataPemilik(p, request, response, mongodbUtils);
 		}
 	}
 	
@@ -76,14 +104,44 @@ public class ActionController extends HttpServlet {
 			ArrayList<Rumah> listRumah = mongodbUtils.getRumah();
 			for(int i=0; i<listPemilik.size();i++) {
 				List<String> idRumah = listPemilik.get(i).getIdRumahList();
+				for(int j=0; j<listRumah.size(); j++) {
+					if(idRumah.contains(listRumah.get(j).getId())){
+						listPemilik.get(i).addRumah(listRumah.get(j));
+					}
+				}
+			}
+			request.setAttribute("dataR", listRumah);
+			request.getRequestDispatcher("/main.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showDataPemilik(Pemilik p,HttpServletRequest request, HttpServletResponse response,
+			MongoDBUtils mongodbUtils) {
+		try {
+			/*ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilik();
+			ArrayList<Rumah> listRumah = mongodbUtils.getRumah();
+			for(int i=0; i<listPemilik.size();i++) {
+				List<String> idRumah = listPemilik.get(i).getIdRumahList();
 				for(int j=0; j<listRumah.size();j++) {
 					if(idRumah.contains(listRumah.get(j).getId())) {
 						listPemilik.get(i).addRumah(listRumah.get(j));
 					}
 				}
+			}*/
+			ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilik();
+			ArrayList<Rumah> listRumah = mongodbUtils.getRumah();
+			for(int i=0; i<listPemilik.size();i++) {
+				List<String> idRumah = listPemilik.get(i).getIdRumahList();
+				for(int j=0; j<listRumah.size(); j++) {
+					if(idRumah.contains(listRumah.get(j).getId())){
+						listPemilik.get(i).addRumah(listRumah.get(j));
+					}
+				}
 			}
 			request.setAttribute("dataList", listPemilik);
-			request.getRequestDispatcher("/main.jsp").forward(request, response);
+			request.getRequestDispatcher("/DetailPemilik.jsp").forward(request, response);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,31 +1,40 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBRef;
 
+import controller.MongoDBUtils;
+
 public class Rumah {
-	//private ObjectId id;
 	private String id;
 	String nama;
 	String status;
 	String provinsi;
 	String alamat;
+<<<<<<< Updated upstream
     private DBRef pemilik;
+=======
+    String idPemilik;
+>>>>>>> Stashed changes
 	int harga;
 	private Ukuran ukuran;
 	private Fasilitas fasilitas;
-	//String Foto;
-	
 	
 	public Rumah() {
 		super();
 	}
 	
 	public Rumah(String id, String nama, String status, String provinsi, String alamat, int harga, 
+<<<<<<< Updated upstream
 				 Ukuran ukuran, Fasilitas fasilitas, DBRef pemilik) {
+=======
+				 Ukuran ukuran, Fasilitas fasilitas, String idPemilik /*,BasicDBObject o*/) {
+>>>>>>> Stashed changes
 		this.setId(id);
 		this.nama = nama;
 		this.status = status;
@@ -35,6 +44,7 @@ public class Rumah {
 		this.setPemilik(pemilik);
 		this.setUkuran(ukuran);
 		this.setFasilitas(fasilitas);
+		//setFoto(o);
 	}
 	
 	private void setPemilik(Object myDbRef) {
@@ -50,7 +60,7 @@ public class Rumah {
 		this.id = id;
 	}
 	
-	public String getNama() {
+	public final String getNama() {
 		return nama;
 	}
 
@@ -74,12 +84,12 @@ public class Rumah {
 		this.provinsi = provinsi;
 	}
 
-	public String getAlamat() {
+	public final String getAlamat() {
 		return alamat;
 	}
 
 	public void setAlamat(String alamat) {
-		alamat = alamat;
+		this.alamat = alamat;
 	}
 
 	public int getHarga() {
@@ -87,7 +97,7 @@ public class Rumah {
 	}
 
 	public void setHarga(int harga) {
-		harga = harga;
+		this.harga = harga;
 	}
     
     public Fasilitas getFasilitas() {
@@ -113,7 +123,11 @@ public class Rumah {
 	public void setPemilik(DBRef pemilik) {
 		this.pemilik = pemilik;
 	}
+<<<<<<< Updated upstream
 
 
 
+=======
+	
+>>>>>>> Stashed changes
 }
