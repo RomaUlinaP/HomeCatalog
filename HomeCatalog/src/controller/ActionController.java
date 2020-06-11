@@ -65,7 +65,7 @@ public class ActionController extends HttpServlet {
 		}else if("before_update".equals(action)) {
 
 		}else if("update".equals(action)) {
-			String namaP = request.getParameter("NamaP");
+			/*String namaP = request.getParameter("NamaP");
 			String nomorHP = request.getParameter("NomorHP");
 			String email = request.getParameter("Email");
 			boolean result= mongodbUtils.updateData(namaP, nomorHP, email);
@@ -75,13 +75,13 @@ public class ActionController extends HttpServlet {
 			}else {
 				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
 				rd.forward(request, response);
-			}
+			}*/
 		}else if("search".equals(action)) {
-			String namaP = request.getParameter("NamaP");
+			/*String namaP = request.getParameter("NamaP");
 			String nomorHP = request.getParameter("NomorHP");
 			String email = request.getParameter("Email");
 			System.out.println("a :"+namaP + nomorHP + email);
-			boolean result= mongodbUtils.search(namaP, nomorHP, email);
+			boolean result= mongodbUtils.search(namaP, nomorHP, email);*/
 			/*if(result) {
 				//showAllData(request, response, mongodbUtils);
 				System.out.println("done");
@@ -93,7 +93,7 @@ public class ActionController extends HttpServlet {
 			String idPemilik = request.getParameter("idPemilik");
 			System.out.println("id:"+idPemilik);
 			Pemilik p = mongodbUtils.findFieldById2(idPemilik);
-			showDataPemilik(p, request, response, mongodbUtils);
+			showDataPemilik(request, response, mongodbUtils);
 		}
 	}
 	
@@ -117,7 +117,7 @@ public class ActionController extends HttpServlet {
 		}
 	}
 	
-	public void showDataPemilik(Pemilik p,HttpServletRequest request, HttpServletResponse response,
+	public void showDataPemilik(HttpServletRequest request, HttpServletResponse response,
 			MongoDBUtils mongodbUtils) {
 		try {
 			/*ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilik();

@@ -16,7 +16,7 @@ public class Rumah {
 	String status;
 	String provinsi;
 	String alamat;
-    private String idPemilik;
+    String idPemilik;
 	int harga;
 	private Ukuran ukuran;
 	private Fasilitas fasilitas;
