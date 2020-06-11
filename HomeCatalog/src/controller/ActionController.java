@@ -104,8 +104,8 @@ public class ActionController extends HttpServlet {
 			ArrayList<Rumah> listRumah = mongodbUtils.getRumah();
 			for(int i=0; i<listPemilik.size();i++) {
 				List<String> idRumah = listPemilik.get(i).getIdRumahList();
-				for(int j=0; j<listRumah.size(); j++) {
-					if(idRumah.contains(listRumah.get(j).getId())){
+				for(int j=0; j<listRumah.size();j++) {
+					if(idRumah.contains(listRumah.get(j).getId())) {
 						listPemilik.get(i).addRumah(listRumah.get(j));
 					}
 				}

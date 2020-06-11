@@ -16,11 +16,7 @@ public class Rumah {
 	String status;
 	String provinsi;
 	String alamat;
-<<<<<<< Updated upstream
-    private DBRef pemilik;
-=======
-    String idPemilik;
->>>>>>> Stashed changes
+    private String idPemilik;
 	int harga;
 	private Ukuran ukuran;
 	private Fasilitas fasilitas;
@@ -30,33 +26,30 @@ public class Rumah {
 	}
 	
 	public Rumah(String id, String nama, String status, String provinsi, String alamat, int harga, 
-<<<<<<< Updated upstream
-				 Ukuran ukuran, Fasilitas fasilitas, DBRef pemilik) {
-=======
 				 Ukuran ukuran, Fasilitas fasilitas, String idPemilik /*,BasicDBObject o*/) {
->>>>>>> Stashed changes
+
 		this.setId(id);
 		this.nama = nama;
 		this.status = status;
 		this.provinsi = provinsi;
 		this.alamat = alamat;
 		this.harga = harga;
-		this.setPemilik(pemilik);
+		this.setIdPemilik(idPemilik);
 		this.setUkuran(ukuran);
 		this.setFasilitas(fasilitas);
 		//setFoto(o);
 	}
 	
-	private void setPemilik(Object myDbRef) {
+	private final void setPemilik(Object myDbRef) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	public String getId() {
+	public final String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public final void setId(String id) {
 		this.id = id;
 	}
 	
@@ -64,23 +57,23 @@ public class Rumah {
 		return nama;
 	}
 
-	public void setNama(String nama) {
+	public final void setNama(String nama) {
 		this.nama = nama;
 	}
 
-	public String getStatus() {
+	public final String getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public final void setStatus(String status) {
 		this.status = status;
 	}
 
-	public String getProvinsi() {
+	public final String getProvinsi() {
 		return provinsi;
 	}
 
-	public void setProvinsi(String provinsi) {
+	public final void setProvinsi(String provinsi) {
 		this.provinsi = provinsi;
 	}
 
@@ -88,46 +81,39 @@ public class Rumah {
 		return alamat;
 	}
 
-	public void setAlamat(String alamat) {
+	public final void setAlamat(String alamat) {
 		this.alamat = alamat;
 	}
 
-	public int getHarga() {
+	public final int getHarga() {
 		return harga;
 	}
 
-	public void setHarga(int harga) {
+	public final void setHarga(int harga) {
 		this.harga = harga;
 	}
     
-    public Fasilitas getFasilitas() {
+    public final Fasilitas getFasilitas() {
 		return fasilitas;
 	}
 
-	public void setFasilitas(Fasilitas fasilitas) {
+	public final void setFasilitas(Fasilitas fasilitas) {
 		this.fasilitas = fasilitas;
 	}
 
-	public Ukuran getUkuran() {
+	public final Ukuran getUkuran() {
 		return ukuran;
 	}
 
-	public void setUkuran(Ukuran ukuran) {
+	public final void setUkuran(Ukuran ukuran) {
 		this.ukuran = ukuran;
 	}
 
-	public DBRef getPemilik() {
-		return pemilik;
+	public final String getIdPemilik() {
+		return idPemilik;
 	}
 
-	public void setPemilik(DBRef pemilik) {
-		this.pemilik = pemilik;
+	public final void setIdPemilik(String idPemilik) {
+		this.idPemilik = idPemilik;
 	}
-<<<<<<< Updated upstream
-
-
-
-=======
-	
->>>>>>> Stashed changes
 }

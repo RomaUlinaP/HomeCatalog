@@ -100,12 +100,8 @@ public class MongoDBUtils {
 		    	System.out.println("Menambah Data Rumah");
 		    	String idRumah = new ObjectId().toString();
 		    	idRumahList.add(idRumah);
-<<<<<<< Updated upstream
-		    	DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
-		    	Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, myDbRef);
-=======
 	            Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, idPemilik);
->>>>>>> Stashed changes
+
 				RumahCollection.insertOne(rumah);
 				//Menambahkan list rumah pada data pemilik
 				PemilikCollection.updateOne(eq("_id", idPemilik), Updates.addToSet("idRumahList", idRumah));
@@ -120,11 +116,7 @@ public class MongoDBUtils {
 				PemilikCollection.insertOne(pemilik);
 				System.out.println("Menambah Data Rumah");
 				DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
-<<<<<<< Updated upstream
-				Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, myDbRef);
-=======
 				Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, idPemilik);
->>>>>>> Stashed changes
 				RumahCollection.insertOne(rumah);
 		    }
 				System.out.println("Data Tersimpan");
