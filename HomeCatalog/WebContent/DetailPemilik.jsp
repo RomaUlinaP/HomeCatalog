@@ -24,17 +24,17 @@
             	</tr>
             </thead>
             <tbody>
-		    	<c:forEach items="${dataList}" var="dataItem">
+		    	<c:forEach items="${dataPemilik}" var="dataItems">
 	            	<form action="ActionController" method="post">
 			        	<tr>
-			        		<td>${dataItem.namaP}</td>
-			            	<td>${dataItem.nomorHP}</td>
-			            	<td>${dataItem.email}</td>
+			        		<td>${dataItems.namaP}</td>
+			            	<td>${dataItems.nomorHP}</td>
+			            	<td>${dataItems.email}</td>
 			        	</tr>
 			        	
-			        	<input type="hidden" name="NamaP"  		value="${dataItem.namaP}">
-			        	<input type="hidden" name="NomorHP"     value="${dataItem.nomorHP}">
-			       		<input type="hidden" name="Email"     	value="${dataItem.email}">
+			        	<input type="hidden" name="NamaP"  		value="${dataItems.namaP}">
+			        	<input type="hidden" name="NomorHP"     value="${dataItems.nomorHP}">
+			       		<input type="hidden" name="Email"     	value="${dataItems.email}">
 			     	</form>
 		    	</c:forEach>
 		    </tbody>

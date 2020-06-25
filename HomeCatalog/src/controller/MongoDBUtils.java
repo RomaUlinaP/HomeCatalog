@@ -74,6 +74,31 @@ public class MongoDBUtils {
 		return resultList;
 	}
 	
+	public ArrayList<Pemilik> getPemilikbyid(String id) throws IOException {	
+		ArrayList<Pemilik> resultList = new ArrayList<>();
+		ArrayList<Pemilik> p = getPemilik();
+		for (Pemilik pemilik : p) {
+	        if (pemilik.getId().equals(id)) {
+	        	resultList.add(pemilik);
+	        	return resultList;
+	        }
+	    }
+		return resultList;
+	}
+	
+	public ArrayList<Rumah> getRumahByPemilik(String nomorHP) throws IOException {		
+		Pemilik p = findPemilikByNomorHP(nomorHP);
+		String id = p.getId(); 
+		ArrayList<Rumah> resultList = new ArrayList<>();
+		ArrayList<Rumah> r = getRumah();
+		for (Rumah rumah : r) {
+	        if (rumah.getIdPemilik().equals(id)) {
+	        	resultList.add(rumah);
+	       }
+	    }		
+		return resultList;
+	}
+	
 	public ArrayList<Rumah> getRumah() throws IOException {		
 		ArrayList<Rumah> resultList = new ArrayList<>();
 		FindIterable<Rumah> rumahIterable = RumahCollection.find();		
@@ -93,7 +118,7 @@ public class MongoDBUtils {
 		    if (count > 0){
 		    	System.out.println("Data Pemilik Sudah Ada");
 		    	//Mencari data pemilik
-		    	Pemilik p = findFieldById(nomorHP);
+		    	Pemilik p = findPemilikByNomorHP(nomorHP);
 		    	String idPemilik = p.getId();
 		    	List<String> idRumahList = p.getIdRumahList();
 		    	//Menambahkan data rumah
@@ -153,8 +178,20 @@ public class MongoDBUtils {
 		return true;
 	}
 	
-	public boolean delete() {
-		
+	public boolean delete(String idRumah, String nomorHP) throws IOException {
+		Rumah r = findRumahById(idRumah);
+		String idPemilik = r.getIdPemilik();
+		long count = RumahCollection.countDocuments(new BsonDocument("idPemilik", new BsonString(idPemilik)));
+		System.out.println("Jumlah rumah :"+count +","+idRumah +","+idPemilik);
+	    if (count > 1){
+	    	DeleteResult del = RumahCollection.deleteOne(eq("_id", idRumah));
+	    	System.out.println("del = "+del.getDeletedCount());
+	    }else {
+	    	DeleteResult delR = RumahCollection.deleteOne(eq("_id", idRumah));
+	    	DeleteResult delP = PemilikCollection.deleteOne(eq("_id", idPemilik));
+	    	System.out.println("delR = "+delR.getDeletedCount());
+	    	System.out.println("delP = "+delP.getDeletedCount());
+	    }
 		return true;
 	}
 	
@@ -165,7 +202,8 @@ public class MongoDBUtils {
 		    	System.out.println("Data Pemilik Sudah Ada");
 		    	
 		    }else{
-		    	//jsp kembali tulisan "tidak ada data penjual"
+		    	
+		    	return false;
 		    }
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -174,17 +212,16 @@ public class MongoDBUtils {
 		return true;
 	}
 	
-	public Pemilik findFieldById(String nomorHP) throws IOException {
+	public Pemilik findPemilikByNomorHP(String nomorHP) throws IOException {
 		Pemilik p = PemilikCollection
     			.find(new BasicDBObject("nomorHP", nomorHP))
     			.projection(Projections.fields(Projections.include("id"))).first();
     	return p;
 	}
 	
-	public Pemilik findFieldById2(String idPemilik) throws IOException {
-		Pemilik p = PemilikCollection
-    			.find(new BasicDBObject("id", idPemilik))
-    			.projection(Projections.fields(Projections.include("id"))).first();
+	public Rumah findRumahById(String id) throws IOException {
+		Rumah p = RumahCollection
+				.find(eq("_id", id)).first();
     	return p;
 	}
 }

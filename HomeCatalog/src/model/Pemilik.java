@@ -6,6 +6,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 public class Pemilik {
+	
 	private String id;
 	String namaP;
 	String nomorHP;
@@ -27,8 +28,14 @@ public class Pemilik {
 		this.idRumahList = idRumahList;
 	}
 
+	public Pemilik(String NamaP, String NomorHP, String Email) {
+		super();
+		this.namaP= NamaP;
+		this.nomorHP = NomorHP;
+		this.email= Email;
+	}
 
-	public String getId() {
+	public final String getId() {
 		return id;
 	}
 

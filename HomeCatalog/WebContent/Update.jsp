@@ -33,10 +33,10 @@
         		<input class="form-control" placeholder="Masukan Email" name="Email" value="${Email}">
       		</div>
     	</div>
-  
+ 		
 		<div class="form-group">
       		<div class="col-sm-offset-2 col-sm-10">
-      			<input type="hidden" name="action" value="Search"><input class="btn btn-info" type="submit" value="Cari Data Rumah"/></td>
+      			<input type="hidden" name="action" value="search"><input class="btn btn-info" type="submit" value="Cari Data Rumah"/></td>
       		</div>
     	</div>
     </form>

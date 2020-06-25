@@ -17,16 +17,17 @@ import model.Ukuran;
 
 public class ActionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	String currNomorHP;
 	public ActionController() {
 		super();
 	}
-
-	protected void doPost(HttpServletRequest request,
+	MongoDBUtils mongodbUtils = new MongoDBUtils();
+	public void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		System.out.println("ACTION = "+action);
 		MongoDBUtils mongodbUtils = new MongoDBUtils();
+		
 		if("Retrieve".equals(action)){
 			showAllData(request, response, mongodbUtils);
 		}else if("insert".equals(action)){
@@ -57,8 +58,15 @@ public class ActionController extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
 				rd.forward(request, response);
 			}
-		}else if("delete".equals(action)){
-		
+		}else if("hapus".equals(action)){
+			String id = request.getParameter("idRumah");
+			boolean result = mongodbUtils.delete(id, currNomorHP);
+			if(result) {
+				showDataRumah(request, response, mongodbUtils, currNomorHP);
+			}else {
+				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
+			}
 		}else if("Input".equals(action)) {
 			RequestDispatcher rd = request.getRequestDispatcher("/Input.jsp");
 			rd.forward(request, response);
@@ -77,23 +85,24 @@ public class ActionController extends HttpServlet {
 				rd.forward(request, response);
 			}*/
 		}else if("search".equals(action)) {
-			/*String namaP = request.getParameter("NamaP");
-			String nomorHP = request.getParameter("NomorHP");
+			String namaP = request.getParameter("NamaP");
+			currNomorHP = request.getParameter("NomorHP");
 			String email = request.getParameter("Email");
-			System.out.println("a :"+namaP + nomorHP + email);
-			boolean result= mongodbUtils.search(namaP, nomorHP, email);*/
-			/*if(result) {
-				//showAllData(request, response, mongodbUtils);
-				System.out.println("done");
-			}else {
-				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+			boolean result = mongodbUtils.search(namaP, currNomorHP, email);
+			if(result) {
+				System.out.println("a :"+namaP + currNomorHP + email);
+				RequestDispatcher rd = request.getRequestDispatcher("/ListRumah.jsp");
 				rd.forward(request, response);
-			}*/
+			}else {
+				System.out.println("Data tidak ditemukan");
+				RequestDispatcher rd = request.getRequestDispatcher("/Update.jsp");
+				rd.forward(request, response);
+			}
 		}else if("TampilPemilik".equals(action)){
 			String idPemilik = request.getParameter("idPemilik");
-			System.out.println("id:"+idPemilik);
-			Pemilik p = mongodbUtils.findFieldById2(idPemilik);
-			showDataPemilik(request, response, mongodbUtils);
+			showDataPemilik(request, response, mongodbUtils, idPemilik);
+		}else if("retrieve".equals(action)){
+			showDataRumah(request, response, mongodbUtils, currNomorHP);
 		}
 	}
 	
@@ -118,30 +127,22 @@ public class ActionController extends HttpServlet {
 	}
 	
 	public void showDataPemilik(HttpServletRequest request, HttpServletResponse response,
-			MongoDBUtils mongodbUtils) {
+			MongoDBUtils mongodbUtils, String id) {
 		try {
-			/*ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilik();
-			ArrayList<Rumah> listRumah = mongodbUtils.getRumah();
-			for(int i=0; i<listPemilik.size();i++) {
-				List<String> idRumah = listPemilik.get(i).getIdRumahList();
-				for(int j=0; j<listRumah.size();j++) {
-					if(idRumah.contains(listRumah.get(j).getId())) {
-						listPemilik.get(i).addRumah(listRumah.get(j));
-					}
-				}
-			}*/
-			ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilik();
-			ArrayList<Rumah> listRumah = mongodbUtils.getRumah();
-			for(int i=0; i<listPemilik.size();i++) {
-				List<String> idRumah = listPemilik.get(i).getIdRumahList();
-				for(int j=0; j<listRumah.size(); j++) {
-					if(idRumah.contains(listRumah.get(j).getId())){
-						listPemilik.get(i).addRumah(listRumah.get(j));
-					}
-				}
-			}
-			request.setAttribute("dataList", listPemilik);
-			request.getRequestDispatcher("/DetailPemilik.jsp").forward(request, response);
+			ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilikbyid(id);
+			request.setAttribute("dataPemilik", listPemilik);
+			request.getRequestDispatcher("DetailPemilik.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showDataRumah(HttpServletRequest request, HttpServletResponse response,
+			MongoDBUtils mongodbUtils, String nomorHP) {
+		try {
+			ArrayList<Rumah> listRumah = mongodbUtils.getRumahByPemilik(nomorHP);
+			request.setAttribute("dataRumah", listRumah);
+			request.getRequestDispatcher("ListRumah.jsp").forward(request, response);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
