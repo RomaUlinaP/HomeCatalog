@@ -46,10 +46,12 @@
 			            	<td>${dataItem.getFasilitas().getGarasi()}</td>
 			            	<td>${dataItem.getFasilitas().getDapur()}</td>
 			            	<td>${dataItem.getFasilitas().getHalamanBelakang()}</td>
-			            	<td><input type="hidden" name="action" value="hapus"><input class="btn btn-info" type="submit" value="Hapus Data"/></td> 
+			            	<td><input type="submit" name="action" value="hapus" class="btn btn-info"/></td> 
 							<td><input type="hidden" name="action" value="before_update"><input class="btn btn-info" type="submit" value="Edit Data"/></td>
+							
 			        	</tr>
 			        	<input type="hidden" name="idRumah"  		value="${dataItem.id}">
+			        	<input type="hidden" name="Status"  		value="${dataItem.status}">
 			        	<input type="hidden" name="idPemilik"  		value="${dataItem.idPemilik}">
 			        	<input type="hidden" name="NamaRumah"  		value="${dataItem.nama}">
 			        	<input type="hidden" name="Alamat"     		value="${dataItem.alamat}">

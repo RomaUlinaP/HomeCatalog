@@ -155,54 +155,41 @@ public class MongoDBUtils {
 	}
 	
 	//pemilik update status rumah (terjual/belum terjual)
-	public boolean updateData(String namaP, String nomorHP, String email) {
-		try {
-			long count = PemilikCollection.countDocuments(new BsonDocument("nomorHP", new BsonString(nomorHP)));
-		    if (count > 0){
-		    	System.out.println("Data Pemilik Sudah Ada");
-		    	/*1. tampilkan data rumah, 
-		    	2. klik edit pada data rumah
-		    	3. tampilkan spesifikasi data rumah 
-		    	4. ubah data
-		    	5. simpan (kalo status di ubah menjadi terjual, hapus data
-		    	6. kembali ke tampilan 1
-		    	*/
-		    }else{
-		    	System.out.println("Data Pemilik Belum Terdaftar");
-		    }
-				System.out.println("Data Tersimpan");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		public boolean updateData(String idRumah,String nama,String status,String provinsi,String alamat,int harga,Ukuran ukuran,Fasilitas fasilitas) throws Exception {
+			String id = idRumah;
+			try {
+				RumahCollection.updateOne(Filters.eq("id", id),Updates.combine(Updates.set("nama", nama),Updates.set("status", status),
+								Updates.set("provinsi", provinsi), Updates.set("alamat", alamat), Updates.set("ukuran",ukuran),Updates.set("fasilitas", fasilitas)));
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
 		}
-		return true;
-	}
 	
 	public boolean delete(String idRumah, String nomorHP) throws IOException {
 		Rumah r = findRumahById(idRumah);
 		String idPemilik = r.getIdPemilik();
 		long count = RumahCollection.countDocuments(new BsonDocument("idPemilik", new BsonString(idPemilik)));
-		System.out.println("Jumlah rumah :"+count +","+idRumah +","+idPemilik);
+		//System.out.println("Jumlah rumah :"+count +","+idRumah +","+idPemilik);
 	    if (count > 1){
 	    	DeleteResult del = RumahCollection.deleteOne(eq("_id", idRumah));
-	    	System.out.println("del = "+del.getDeletedCount());
+	    	System.out.println(+del.getDeletedCount()+" Data Rumah Berhasil Terhapus");
 	    }else {
 	    	DeleteResult delR = RumahCollection.deleteOne(eq("_id", idRumah));
 	    	DeleteResult delP = PemilikCollection.deleteOne(eq("_id", idPemilik));
-	    	System.out.println("delR = "+delR.getDeletedCount());
-	    	System.out.println("delP = "+delP.getDeletedCount());
+	    	System.out.println(+delR.getDeletedCount()+" Data Rumah Berhasil Terhapus");
+	    	System.out.println(+delP.getDeletedCount()+" Data Pemilik Berhasil Terhapus");
 	    }
 		return true;
 	}
 	
-	public boolean search(String namaP, String nomorHP, String email) {
+	public boolean search(String nomorHP) {
 		try {
 			long count = PemilikCollection.countDocuments(new BsonDocument("nomorHP", new BsonString(nomorHP)));
 		    if (count > 0){
-		    	System.out.println("Data Pemilik Sudah Ada");
-		    	
+		    	System.out.println("Data Pemilik Sudah Terdaftar");
 		    }else{
-		    	
 		    	return false;
 		    }
 		} catch (Exception e) {

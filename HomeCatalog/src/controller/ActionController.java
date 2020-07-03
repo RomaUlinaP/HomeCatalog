@@ -62,7 +62,13 @@ public class ActionController extends HttpServlet {
 			String id = request.getParameter("idRumah");
 			boolean result = mongodbUtils.delete(id, currNomorHP);
 			if(result) {
-				showDataRumah(request, response, mongodbUtils, currNomorHP);
+				boolean result2 = mongodbUtils.search(currNomorHP);
+				if(result2) {
+					showDataRumah(request, response, mongodbUtils, currNomorHP);
+				}else {
+					RequestDispatcher rd = request.getRequestDispatcher("/Update.jsp");
+					rd.forward(request, response);
+				}
 			}else {
 				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
 				rd.forward(request, response);
@@ -71,26 +77,57 @@ public class ActionController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/Input.jsp");
 			rd.forward(request, response);
 		}else if("before_update".equals(action)) {
-
+			String id = request.getParameter("idRumah");
+			String nama = request.getParameter("NamaRumah");
+			String status = request.getParameter("Status");
+			String idPemilik = request.getParameter("idPemilik");
+			String provinsi = request.getParameter("Provinsi");
+			String alamat = request.getParameter("Alamat");
+			int harga = Integer.parseInt(request.getParameter("Harga"));
+			int panjang = Integer.parseInt(request.getParameter("Panjang"));
+			int lebar = Integer.parseInt(request.getParameter("Lebar"));
+			int kamarTidur = Integer.parseInt(request.getParameter("KamarTidur"));
+			int kamarMandi = Integer.parseInt(request.getParameter("KamarMandi"));
+			int garasi = Integer.parseInt(request.getParameter("Garasi"));
+			int dapur = Integer.parseInt(request.getParameter("Dapur"));
+			int halamanBelakang = Integer.parseInt(request.getParameter("HalamanBelakang"));
+			Fasilitas fasilitas = new Fasilitas(kamarTidur, kamarMandi, garasi, dapur, halamanBelakang);
+			Ukuran ukuran = new Ukuran(panjang, lebar);
+			
+			Rumah rumah = new Rumah (id,nama,status,provinsi,alamat,harga,ukuran,fasilitas,idPemilik);
+			request.setAttribute("rumah", rumah);
+			RequestDispatcher rd = request.getRequestDispatcher("/editrumah.jsp");
+			rd.forward(request, response);
 		}else if("update".equals(action)) {
-			/*String namaP = request.getParameter("NamaP");
-			String nomorHP = request.getParameter("NomorHP");
-			String email = request.getParameter("Email");
-			boolean result= mongodbUtils.updateData(namaP, nomorHP, email);
-			if(result) {
-				//showAllData(request, response, mongodbUtils);
-				System.out.println("done");
-			}else {
-				RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+			String id = request.getParameter("idRumah");
+			String nama = request.getParameter("NamaRumah");
+			String status = request.getParameter("Status");
+			String provinsi = request.getParameter("Provinsi");
+			String alamat = request.getParameter("Alamat");
+			int harga = Integer.parseInt(request.getParameter("Harga"));
+			int panjang = Integer.parseInt(request.getParameter("Panjang"));
+			int lebar = Integer.parseInt(request.getParameter("Lebar"));
+			int kamarTidur = Integer.parseInt(request.getParameter("KamarTidur"));
+			int kamarMandi = Integer.parseInt(request.getParameter("KamarMandi"));
+			int garasi = Integer.parseInt(request.getParameter("Garasi"));
+			int dapur = Integer.parseInt(request.getParameter("Dapur"));
+			int halamanBelakang = Integer.parseInt(request.getParameter("HalamanBelakang"));
+			Fasilitas fasilitas = new Fasilitas(kamarTidur, kamarMandi, garasi, dapur, halamanBelakang);
+			Ukuran ukuran = new Ukuran(panjang, lebar);
+			boolean resultUpdate;
+			try {
+				
+				System.out.println("Data Rumah Berhasil Diperbaharui");
+				resultUpdate = mongodbUtils.updateData(id, nama, status,provinsi,alamat,harga,ukuran,fasilitas);
+				RequestDispatcher rd = request.getRequestDispatcher("/ListRumah.jsp");
 				rd.forward(request, response);
-			}*/
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if("search".equals(action)) {
-			String namaP = request.getParameter("NamaP");
 			currNomorHP = request.getParameter("NomorHP");
-			String email = request.getParameter("Email");
-			boolean result = mongodbUtils.search(namaP, currNomorHP, email);
+			boolean result = mongodbUtils.search(currNomorHP);
 			if(result) {
-				System.out.println("a :"+namaP + currNomorHP + email);
 				RequestDispatcher rd = request.getRequestDispatcher("/ListRumah.jsp");
 				rd.forward(request, response);
 			}else {
@@ -129,6 +166,7 @@ public class ActionController extends HttpServlet {
 	public void showDataPemilik(HttpServletRequest request, HttpServletResponse response,
 			MongoDBUtils mongodbUtils, String id) {
 		try {
+			System.out.println("Menampilkan Data ...");
 			ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilikbyid(id);
 			request.setAttribute("dataPemilik", listPemilik);
 			request.getRequestDispatcher("DetailPemilik.jsp").forward(request, response);
@@ -140,6 +178,7 @@ public class ActionController extends HttpServlet {
 	public void showDataRumah(HttpServletRequest request, HttpServletResponse response,
 			MongoDBUtils mongodbUtils, String nomorHP) {
 		try {
+			System.out.println("Menampilkan Data ...");
 			ArrayList<Rumah> listRumah = mongodbUtils.getRumahByPemilik(nomorHP);
 			request.setAttribute("dataRumah", listRumah);
 			request.getRequestDispatcher("ListRumah.jsp").forward(request, response);
