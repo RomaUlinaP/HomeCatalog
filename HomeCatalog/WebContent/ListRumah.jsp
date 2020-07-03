@@ -19,10 +19,10 @@
         		<tr>
                 	<th>Nama Rumah</th>
                 	<th>Alamat</th>
-                	<th>Provinsi</th>
+                	<th>Kecamatan</th>
                 	<th>Harga</th>
-                	<th>Panjang</th>
-					<th>Lebar</th>
+                	<th>Luas Tanah</th>
+					<th>Luas Bangunan</th>
 					<th>Foto</th>
 					<th>Kamar Tidur</th>
 					<th>Kamar Mandi</th>
@@ -37,10 +37,10 @@
 			        	<tr>
 			        		<td>${dataItem.nama}</td>
 			            	<td>${dataItem.alamat}</td>
-			            	<td>${dataItem.provinsi}</td>
+			            	<td>${dataItem.kecamatan}</td>
 			            	<td>${dataItem.harga}</td>
-			            	<td>${dataItem.getUkuran().getPanjang()}</td>
-			            	<td>${dataItem.getUkuran().getLebar()}</td>
+			            	<td>${dataItem.getLuas().getLuasTanah()}</td>
+			            	<td>${dataItem.getLuas().getLuasBangunan()}</td>
 			            	<td>${dataItem.getFasilitas().getKamarTidur()}</td>
 			            	<td>${dataItem.getFasilitas().getKamarMandi()}</td>
 			            	<td>${dataItem.getFasilitas().getGarasi()}</td>
@@ -51,14 +51,13 @@
 							
 			        	</tr>
 			        	<input type="hidden" name="idRumah"  		value="${dataItem.id}">
-			        	<input type="hidden" name="Status"  		value="${dataItem.status}">
 			        	<input type="hidden" name="idPemilik"  		value="${dataItem.idPemilik}">
 			        	<input type="hidden" name="NamaRumah"  		value="${dataItem.nama}">
 			        	<input type="hidden" name="Alamat"     		value="${dataItem.alamat}">
-			       		<input type="hidden" name="Provinsi"     	value="${dataItem.provinsi}">
+			       		<input type="hidden" name="Kecamatan"     	value="${dataItem.kecamatan}">
 			       		<input type="hidden" name="Harga"      		value="${dataItem.harga}">
-			       		<input type="hidden" name="Panjang"  		value="${dataItem.getUkuran().getPanjang()}">
-			       		<input type="hidden" name="Lebar"     		value="${dataItem.getUkuran().getLebar()}">
+			       		<input type="hidden" name="LuasTanah"  		value="${dataItem.getLuas().getLuasTanah()}">
+			       		<input type="hidden" name="LuasBangunan"     		value="${dataItem.getLuas().getLuasBangunan()}">
 			       		<input type="hidden" name="KamarTidur"     	value="${dataItem.getFasilitas().getKamarTidur()}">
 			       		<input type="hidden" name="KamarMandi"     	value="${dataItem.getFasilitas().getKamarMandi()}">
 			       		<input type="hidden" name="Garasi"      	value="${dataItem.getFasilitas().getGarasi()}">

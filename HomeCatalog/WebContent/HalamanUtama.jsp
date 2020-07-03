@@ -13,8 +13,11 @@
 <body>
 	<div class="container">
   		<h2>Katalog Rumah</h2>
+  		<form action="ActionController" method="post">
   		<a class="btn btn-info" href="JualRumah.jsp">Jual Rumah</a>
-  		<a class="btn btn-info" href="main.jsp">Lihat Rumah</a>
+  		
+        	<td><input type="hidden" name="action" value="Retrieve"><input class="btn btn-info" type="submit" value="Lihat Rumah"/></td> 
+        </form>
 	</div>
 	<hr/>
 </body>

@@ -13,33 +13,35 @@ import controller.MongoDBUtils;
 public class Rumah {
 	private String id;
 	String nama;
-	String status;
-	String provinsi;
+	String kecamatan;
 	String alamat;
 	String idPemilik;
 	int harga;
-	private Ukuran ukuran;
+	private Luas luas;
 	private Fasilitas fasilitas;
 	
 	public Rumah() {
 		super();
 	}
 	
-	public Rumah(String id, String nama, String status, String provinsi, String alamat, int harga, 
-				 Ukuran ukuran, Fasilitas fasilitas, String idPemilik) {
+	public Rumah(String id, String nama, String kecamatan, String alamat, int harga, 
+				 Luas luas, Fasilitas fasilitas, String idPemilik) {
 
 		this.setId(id);
 		this.nama = nama;
-		this.status = status;
-		this.provinsi = provinsi;
+		this.kecamatan = kecamatan;
 		this.alamat = alamat;
 		this.harga = harga;
 		this.idPemilik = idPemilik;
-		this.setUkuran(ukuran);
+		this.setLuas(luas);
 		this.setFasilitas(fasilitas);
 		//setFoto(o);
 	}
 	
+	public Rumah(String string, int sortValue) {
+		// TODO Auto-generated constructor stub
+	}
+
 	private final void setPemilik(Object myDbRef) {
 		// TODO Auto-generated method stub
 		
@@ -61,20 +63,12 @@ public class Rumah {
 		this.nama = nama;
 	}
 
-	public final String getStatus() {
-		return status;
+	public final String getKecamatan() {
+		return kecamatan;
 	}
 
-	public final void setStatus(String status) {
-		this.status = status;
-	}
-
-	public final String getProvinsi() {
-		return provinsi;
-	}
-
-	public final void setProvinsi(String provinsi) {
-		this.provinsi = provinsi;
+	public final void setKecamatan(String kecamatan) {
+		this.kecamatan = kecamatan;
 	}
 
 	public final String getAlamat() {
@@ -101,12 +95,12 @@ public class Rumah {
 		this.fasilitas = fasilitas;
 	}
 
-	public final Ukuran getUkuran() {
-		return ukuran;
+	public final Luas getLuas() {
+		return luas;
 	}
 
-	public final void setUkuran(Ukuran ukuran) {
-		this.ukuran = ukuran;
+	public final void setLuas(Luas luas) {
+		this.luas = luas;
 	}
 
 

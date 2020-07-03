@@ -21,13 +21,6 @@
         		<input class="form-control" name="NamaRumah" value="${rumah.nama}">
       		</div>
     	</div>
-    		<form class="form-horizontal" action="ActionController" method="post">
-		<div class="form-group">
-      		<label class="control-label col-sm-2">Status:</label>
-      		<div class="col-sm-10">
-        		<input class="form-control" name="NamaRumah" value="${rumah.status}">
-      		</div>
-    	</div>
     	<div class="form-group">
       		<label class="control-label col-sm-2">Alamat:</label>
       		<div class="col-sm-10">
@@ -35,9 +28,9 @@
       		</div>
     	</div>
 		<div class="form-group">
-      		<label class="control-label col-sm-2">Provinsi:</label>
+      		<label class="control-label col-sm-2">Kecamatan:</label>
       		<div class="col-sm-10">
-        		<input class="form-control" name="Provinsi" value="${rumah.provinsi}">
+        		<input class="form-control" name="Kecamatan" value="${rumah.kecamatan}">
       		</div>
     	</div>
 		<div class="form-group">
@@ -47,15 +40,15 @@
       		</div>
     	</div>
 		<div class="form-group">
-      		<label class="control-label col-sm-2">Panjang:</label>
+      		<label class="control-label col-sm-2">LuasTanah:</label>
       		<div class="col-sm-10">
-        		<input class="form-control" name="Panjang" value="${rumah.ukuran.panjang}">
+        		<input class="form-control" name="LuasTanah" value="${rumah.luas.luasTanah}">
       		</div>
     	</div>
 		<div class="form-group">
-      		<label class="control-label col-sm-2">Lebar:</label>
+      		<label class="control-label col-sm-2">LuasBangunan:</label>
       		<div class="col-sm-10">
-        		<input class="form-control" name="Lebar" value="${rumah.ukuran.lebar}">
+        		<input class="form-control" name="LuasBangunan" value="${rumah.luas.luasBangunan}">
       		</div>
     	</div>
     	<div class="form-group">

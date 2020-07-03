@@ -40,7 +40,7 @@ import com.mongodb.DBCollection;
 import model.Fasilitas;
 import model.Pemilik;
 import model.Rumah;
-import model.Ukuran;
+import model.Luas;
 
 public class MongoDBUtils {	
 	MongoDatabase database;
@@ -86,6 +86,51 @@ public class MongoDBUtils {
 		return resultList;
 	}
 	
+	public List<Rumah> getRumahbyFilter1(String kecamatan, int HargaMin, int HargaMax) throws IOException {	
+		List<Rumah> resultList = RumahCollection.find(Filters.and(
+				Filters.and(
+						Filters.eq("kecamatan",kecamatan),
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax)),
+				Filters.or(
+						Filters.eq("kecamatan",kecamatan),
+						Filters.and(
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax))))).into(new ArrayList<Rumah>());
+		return resultList;
+	}
+	
+	public List<Rumah> getRumahbyFilter2(int HargaMin, int HargaMax) throws IOException {	
+		List<Rumah> resultList = RumahCollection.find(Filters.and(
+				Filters.gte("harga", HargaMin),
+				Filters.lte("harga", HargaMax))).into(new ArrayList<Rumah>());
+		return resultList;
+	}
+	
+	public List<Rumah> getRumahbyFilter3(int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin, 
+			int LuasBangunanMax, String kecamatan, int kamarTidur, int kamarMandi) throws IOException {	
+		//Luas luas;
+		List<Rumah> resultList = RumahCollection.find(Filters.and(
+				Filters.eq("kecamatan",kecamatan),
+				Filters.eq("fasilitas.kamarTidur", kamarTidur),
+				Filters.eq("fasilitas.kamarMandi", kamarMandi),
+				Filters.gte("luas.luasTanah", LuasTanahMin),
+				Filters.lte("luas.luasTanah", LuasTanahMax),
+				Filters.and(
+					Filters.gte("luas.luasBangunan", LuasBangunanMin),
+					Filters.lte("luas.luasBangunan", LuasBangunanMax)))).into(new ArrayList<Rumah>());
+		return resultList;
+	}
+	
+	public List<Rumah> getRumahbyFilter4(int SortValue) throws IOException {	
+		ArrayList<Rumah> resultList = new ArrayList<>();
+		FindIterable<Rumah> rumahIterable = RumahCollection.find().sort(new BasicDBObject("harga",SortValue));
+		for (Rumah rumah : rumahIterable) {
+			resultList.add(rumah);
+		}	
+		return resultList;
+	}
+	
 	public ArrayList<Rumah> getRumahByPemilik(String nomorHP) throws IOException {		
 		Pemilik p = findPemilikByNomorHP(nomorHP);
 		String id = p.getId(); 
@@ -109,9 +154,9 @@ public class MongoDBUtils {
 		return resultList;
 	}
 	//pemilik meng-insert data rumah
-	public boolean inserting(String nama, String status, String provinsi, String alamat, 
+	public boolean inserting(String nama, String kecamatan, String alamat, 
 						     int harga, String namaP, String nomorHP, String email, 
-						     Ukuran ukuran, Fasilitas fasilitas) {
+						     Luas luas, Fasilitas fasilitas) {
 		
 		try {
 			long count = PemilikCollection.countDocuments(new BsonDocument("nomorHP", new BsonString(nomorHP)));
@@ -125,7 +170,7 @@ public class MongoDBUtils {
 		    	System.out.println("Menambah Data Rumah");
 		    	String idRumah = new ObjectId().toString();
 		    	idRumahList.add(idRumah);
-	            	Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, idPemilik);
+	            	Rumah rumah = new Rumah(idRumah, nama, kecamatan, alamat, harga, luas, fasilitas, idPemilik);
 
 
 				RumahCollection.insertOne(rumah);
@@ -143,7 +188,7 @@ public class MongoDBUtils {
 				System.out.println("Menambah Data Rumah");
 
 				DBRef myDbRef = new DBRef("myDb", "PemilikCollection", idPemilik);
-				Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, idPemilik);
+				Rumah rumah = new Rumah(idRumah, nama, kecamatan, alamat, harga, luas, fasilitas, idPemilik);
 				RumahCollection.insertOne(rumah);
 		    }
 				System.out.println("Data Tersimpan");
@@ -154,12 +199,11 @@ public class MongoDBUtils {
 		return true;
 	}
 	
-	//pemilik update status rumah (terjual/belum terjual)
-		public boolean updateData(String idRumah,String nama,String status,String provinsi,String alamat,int harga,Ukuran ukuran,Fasilitas fasilitas) throws Exception {
+		public boolean updateData(String idRumah,String nama,String kecamatan,String alamat,int harga,Luas luas,Fasilitas fasilitas) throws Exception {
 			String id = idRumah;
 			try {
-				RumahCollection.updateOne(Filters.eq("id", id),Updates.combine(Updates.set("nama", nama),Updates.set("status", status),
-								Updates.set("provinsi", provinsi), Updates.set("alamat", alamat), Updates.set("ukuran",ukuran),Updates.set("fasilitas", fasilitas)));
+				RumahCollection.updateOne(Filters.eq("id", id),Updates.combine(Updates.set("nama", nama), Updates.set("harga", harga),
+								Updates.set("kecamatan", kecamatan), Updates.set("alamat", alamat), Updates.set("luas",luas),Updates.set("fasilitas", fasilitas)));
 			} catch (Exception e) {
 				e.printStackTrace();
 				return false;

@@ -13,11 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import model.Fasilitas;
 import model.Pemilik;
 import model.Rumah;
-import model.Ukuran;
+import model.Luas;
 
 public class ActionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String currNomorHP;
+	String Kecamatan;
+	int LuasTanahMin;
+	int LuasTanahMax;
+	int LuasBangunanMin;
+	int LuasBangunanMax;
 	public ActionController() {
 		super();
 	}
@@ -33,24 +38,23 @@ public class ActionController extends HttpServlet {
 		}else if("insert".equals(action)){
 			// TODO
 			String nama = request.getParameter("NamaRumah");
-			String status = "Belum Terjual";
-			String provinsi = request.getParameter("Provinsi");
+			String kecamatan = request.getParameter("Kecamatan");
 			String alamat = request.getParameter("Alamat");
 			int harga = Integer.parseInt(request.getParameter("Harga"));
 			String namaP = request.getParameter("NamaP");
 			String nomorHP = request.getParameter("NomorHP");
 			String email = request.getParameter("Email");
-			int panjang = Integer.parseInt(request.getParameter("Panjang"));
-			int lebar = Integer.parseInt(request.getParameter("Lebar"));
+			int luasTanah = Integer.parseInt(request.getParameter("LuasTanah"));
+			int luasBangunan = Integer.parseInt(request.getParameter("LuasBangunan"));
 			int kamarTidur = Integer.parseInt(request.getParameter("KamarTidur"));
 			int kamarMandi = Integer.parseInt(request.getParameter("KamarMandi"));
 			int garasi = Integer.parseInt(request.getParameter("Garasi"));
 			int dapur = Integer.parseInt(request.getParameter("Dapur"));
 			int halamanBelakang = Integer.parseInt(request.getParameter("HalamanBelakang"));
 			Fasilitas fasilitas = new Fasilitas(kamarTidur, kamarMandi, garasi, dapur, halamanBelakang);
-			Ukuran ukuran = new Ukuran(panjang, lebar);
-			boolean result= mongodbUtils.inserting(nama, status, provinsi, alamat, harga, 
-												   namaP, nomorHP, email, ukuran, fasilitas);
+			Luas luas = new Luas(luasTanah, luasBangunan);
+			boolean result= mongodbUtils.inserting(nama, kecamatan, alamat, harga, 
+												   namaP, nomorHP, email, luas, fasilitas);
 			if(result) {
 				showAllData(request, response, mongodbUtils);
 				System.out.println("done");
@@ -79,46 +83,44 @@ public class ActionController extends HttpServlet {
 		}else if("before_update".equals(action)) {
 			String id = request.getParameter("idRumah");
 			String nama = request.getParameter("NamaRumah");
-			String status = request.getParameter("Status");
 			String idPemilik = request.getParameter("idPemilik");
-			String provinsi = request.getParameter("Provinsi");
+			String kecamatan = request.getParameter("Kecamatan");
 			String alamat = request.getParameter("Alamat");
 			int harga = Integer.parseInt(request.getParameter("Harga"));
-			int panjang = Integer.parseInt(request.getParameter("Panjang"));
-			int lebar = Integer.parseInt(request.getParameter("Lebar"));
+			int luasTanah = Integer.parseInt(request.getParameter("LuasTanah"));
+			int luasBangunan = Integer.parseInt(request.getParameter("LuasBangunan"));
 			int kamarTidur = Integer.parseInt(request.getParameter("KamarTidur"));
 			int kamarMandi = Integer.parseInt(request.getParameter("KamarMandi"));
 			int garasi = Integer.parseInt(request.getParameter("Garasi"));
 			int dapur = Integer.parseInt(request.getParameter("Dapur"));
 			int halamanBelakang = Integer.parseInt(request.getParameter("HalamanBelakang"));
 			Fasilitas fasilitas = new Fasilitas(kamarTidur, kamarMandi, garasi, dapur, halamanBelakang);
-			Ukuran ukuran = new Ukuran(panjang, lebar);
+			Luas luas = new Luas(luasTanah, luasBangunan);
 			
-			Rumah rumah = new Rumah (id,nama,status,provinsi,alamat,harga,ukuran,fasilitas,idPemilik);
+			Rumah rumah = new Rumah (id,nama,kecamatan,alamat,harga,luas,fasilitas,idPemilik);
 			request.setAttribute("rumah", rumah);
 			RequestDispatcher rd = request.getRequestDispatcher("/editrumah.jsp");
 			rd.forward(request, response);
 		}else if("update".equals(action)) {
 			String id = request.getParameter("idRumah");
 			String nama = request.getParameter("NamaRumah");
-			String status = request.getParameter("Status");
-			String provinsi = request.getParameter("Provinsi");
+			String kecamatan = request.getParameter("Kecamatan");
 			String alamat = request.getParameter("Alamat");
 			int harga = Integer.parseInt(request.getParameter("Harga"));
-			int panjang = Integer.parseInt(request.getParameter("Panjang"));
-			int lebar = Integer.parseInt(request.getParameter("Lebar"));
+			int luasTanah = Integer.parseInt(request.getParameter("LuasTanah"));
+			int luasBangunan = Integer.parseInt(request.getParameter("LuasBangunan"));
 			int kamarTidur = Integer.parseInt(request.getParameter("KamarTidur"));
 			int kamarMandi = Integer.parseInt(request.getParameter("KamarMandi"));
 			int garasi = Integer.parseInt(request.getParameter("Garasi"));
 			int dapur = Integer.parseInt(request.getParameter("Dapur"));
 			int halamanBelakang = Integer.parseInt(request.getParameter("HalamanBelakang"));
 			Fasilitas fasilitas = new Fasilitas(kamarTidur, kamarMandi, garasi, dapur, halamanBelakang);
-			Ukuran ukuran = new Ukuran(panjang, lebar);
+			Luas luas = new Luas(luasTanah, luasBangunan);
 			boolean resultUpdate;
 			try {
 				
 				System.out.println("Data Rumah Berhasil Diperbaharui");
-				resultUpdate = mongodbUtils.updateData(id, nama, status,provinsi,alamat,harga,ukuran,fasilitas);
+				resultUpdate = mongodbUtils.updateData(id, nama, kecamatan, alamat, harga, luas, fasilitas);
 				RequestDispatcher rd = request.getRequestDispatcher("/ListRumah.jsp");
 				rd.forward(request, response);
 			} catch (Exception e) {
@@ -140,6 +142,30 @@ public class ActionController extends HttpServlet {
 			showDataPemilik(request, response, mongodbUtils, idPemilik);
 		}else if("retrieve".equals(action)){
 			showDataRumah(request, response, mongodbUtils, currNomorHP);
+		}else if("SearchKecamatan".equals(action)){
+			Kecamatan = request.getParameter("Kec");
+			int HargaMin = Integer.parseInt(request.getParameter("HargaMin"));
+			int HargaMax = Integer.parseInt(request.getParameter("HargaMaks"));
+			//System.out.println(Kecamatan);
+			if(Kecamatan.compareTo("kosong") == 0) {
+				Filters2(request, response, mongodbUtils, HargaMin, HargaMax);
+				System.out.println("cek");
+			}else {
+				Filters1(request, response, mongodbUtils, Kecamatan, HargaMin, HargaMax);
+			}
+		}/*else if("SearchLuas".equals(action)){
+			/LuasTanahMin = Integer.parseInt(request.getParameter("LuasTanahMin"));
+			LuasTanahMax = Integer.parseInt(request.getParameter("LuasTanahMax"));
+			LuasBangunanMin = Integer.parseInt(request.getParameter("LuasBangunanMin"));
+			LuasBangunanMax = Integer.parseInt(request.getParameter("LuasBangunanMax"));
+			int kamarTidur = Integer.parseInt(request.getParameter("KamarTidur"));
+			int kamarMandi = Integer.parseInt(request.getParameter("KamarMandi"));
+			Filters3(request, response, mongodbUtils, LuasTanahMin, LuasTanahMax, LuasBangunanMin, 
+					LuasBangunanMax, Kecamatan, kamarTidur, kamarMandi);
+		}*/else if("SearchFasilitas".equals(action)){
+			int SortValue = Integer.parseInt(request.getParameter("SortHarga"));
+			System.out.println(SortValue);
+			Filters4(request, response, mongodbUtils, SortValue);
 		}
 	}
 	
@@ -170,6 +196,56 @@ public class ActionController extends HttpServlet {
 			ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilikbyid(id);
 			request.setAttribute("dataPemilik", listPemilik);
 			request.getRequestDispatcher("DetailPemilik.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void Filters1(HttpServletRequest request, HttpServletResponse response,
+			MongoDBUtils mongodbUtils, String kecamatan, int HargaMin, int HargaMax) {
+		try {
+			System.out.println("Menampilkan Data ...");
+				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter1(kecamatan, HargaMin, HargaMax);
+				request.setAttribute("dataR", listRumah);
+			request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void Filters2(HttpServletRequest request, HttpServletResponse response,
+			MongoDBUtils mongodbUtils, int HargaMin, int HargaMax) {
+		try {
+			System.out.println("Menampilkan Data ...");
+				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter2(HargaMin, HargaMax);
+				request.setAttribute("dataR", listRumah);
+			request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void Filters3(HttpServletRequest request, HttpServletResponse response, 
+			MongoDBUtils mongodbUtils, int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin, 
+			int LuasBangunanMax, String kecamatan, int kamarTidur, int kamarMandi) {
+		try {
+			System.out.println("Menampilkan Data ...");
+				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter3(LuasTanahMin, LuasTanahMax, 
+						LuasBangunanMin, LuasBangunanMax, kecamatan, kamarTidur, kamarMandi);
+				request.setAttribute("dataR", listRumah);
+			request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void Filters4(HttpServletRequest request, HttpServletResponse response,
+			MongoDBUtils mongodbUtils, int SortValue) {
+		try {
+			System.out.println("Menampilkan Data ...");
+				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter4(SortValue);
+				request.setAttribute("dataR", listRumah);
+			request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
