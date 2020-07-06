@@ -72,7 +72,7 @@
 				<option value="7000">7000</option>
 			</select>
 			<select style="margin-left: 30px;width:150px; overflow=auto; height=50%; max-height:100px" class="form-control" name="LuasBangunanMax">
-				<option value="7000">Berapapun</option>
+				<option value="10000">Berapapun</option>
 				<option value="50">50</option>
 				<option value="100">100</option>
 				<option value="150">150</option>
@@ -88,41 +88,40 @@
 				<option value="6000">6000</option>
 				<option value="7000">7000</option>
 			</select>
-			
 		</div>
-	
-    	<h3>Daftar Rumah</h3>
-    	<div class="form-inline">
+		<br>
+		<div class="form-inline">
     		<label style="margin-left: 10px;">Kamar Tidur</label>
-    		<label style="margin-left: 20px;">Kamar Mandi</label>
+    		<label style="margin-left: 75px;">Kamar Mandi</label>
     	</div>
     	<div class="form-inline">
     		<select style="margin-left: 0px;width:150px; overflow=auto; height=50%; max-height:100px" class="form-control" name="KamarTidur">
-				<option value="0">Kamar Tidur</option>
+				<option value="0">Berapapun</option>
 				<option value="1">1+</option>
 				<option value="2">2+</option>
 				<option value="3">3+</option>
 				<option value="4">4+</option>
 				<option value="5">5+</option>
-				<option value="6">Berapapun</option>
 			</select>
-			<select style="margin-left: 0px;width:150px; overflow=auto; height=50%; max-height:100px" class="form-control" name="KamarMandi">
-				<option value="0">Kamar Mandi</option>
+			<select style="margin-left: 10px;width:150px; overflow=auto; height=50%; max-height:100px" class="form-control" name="KamarMandi">
+				<option value="0">Berapapun</option>
 				<option value="1">1+</option>
 				<option value="2">2+</option>
 				<option value="3">3+</option>
 				<option value="4">4+</option>
 				<option value="5">5+</option>
-				<option value="6">Berapapun</option>
 			</select>
-			<select style="margin-left: 0px;width:150px; overflow=auto; height=50%; max-height:100px" class="form-control" name="SortHarga">
+			<input type="submit" name="action" value="Cari" class="btn btn-info"/>
+    	<h3>Daftar Rumah</h3>
+    		<select style="margin-left:900px;width:150px; overflow=auto; height=50%; max-height:900px" class="form-control" name="SortHarga">
 				<option value="0">Urutkan Harga</option>
 				<option value="-1">Harga Tertinggi</option>
 				<option value="1">Harga Terendah</option>
 			</select>
-			<input type="submit" name="action" value="SearchFasilitas" class="btn btn-info"/></td>
+		  	<input type="submit" name="action" value="Urutkan" class="btn btn-info"/>
 		</div>
 		</form>
+			<br></br>
         <table class="table">
         	<thead>
         		<tr>
@@ -132,10 +131,10 @@
                 	<th>Harga</th>
                 	<th>Luas Tanah</th>
 					<th>Luas Bangunan</th>
-					<th>Foto</th>
 					<th>Kamar Tidur</th>
 					<th>Kamar Mandi</th>
 					<th>Garasi</th>
+					<th>Dapur</th>
 					<th>Halaman Belakang</th>
 					
             	</tr>

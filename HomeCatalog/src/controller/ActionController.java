@@ -19,6 +19,8 @@ public class ActionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String currNomorHP;
 	String Kecamatan;
+	int HargaMin;
+	int HargaMax;
 	int LuasTanahMin;
 	int LuasTanahMax;
 	int LuasBangunanMin;
@@ -144,28 +146,34 @@ public class ActionController extends HttpServlet {
 			showDataRumah(request, response, mongodbUtils, currNomorHP);
 		}else if("SearchKecamatan".equals(action)){
 			Kecamatan = request.getParameter("Kec");
-			int HargaMin = Integer.parseInt(request.getParameter("HargaMin"));
-			int HargaMax = Integer.parseInt(request.getParameter("HargaMaks"));
-			//System.out.println(Kecamatan);
+			HargaMin = Integer.parseInt(request.getParameter("HargaMin"));
+			HargaMax = Integer.parseInt(request.getParameter("HargaMaks"));
 			if(Kecamatan.compareTo("kosong") == 0) {
 				Filters2(request, response, mongodbUtils, HargaMin, HargaMax);
 				System.out.println("cek");
 			}else {
 				Filters1(request, response, mongodbUtils, Kecamatan, HargaMin, HargaMax);
 			}
-		}/*else if("SearchLuas".equals(action)){
-			/LuasTanahMin = Integer.parseInt(request.getParameter("LuasTanahMin"));
+		}else if("Cari".equals(action)){
+			LuasTanahMin = Integer.parseInt(request.getParameter("LuasTanahMin"));
 			LuasTanahMax = Integer.parseInt(request.getParameter("LuasTanahMax"));
 			LuasBangunanMin = Integer.parseInt(request.getParameter("LuasBangunanMin"));
 			LuasBangunanMax = Integer.parseInt(request.getParameter("LuasBangunanMax"));
-			int kamarTidur = Integer.parseInt(request.getParameter("KamarTidur"));
-			int kamarMandi = Integer.parseInt(request.getParameter("KamarMandi"));
-			Filters3(request, response, mongodbUtils, LuasTanahMin, LuasTanahMax, LuasBangunanMin, 
-					LuasBangunanMax, Kecamatan, kamarTidur, kamarMandi);
-		}*/else if("SearchFasilitas".equals(action)){
+			int KamarTidur = Integer.parseInt(request.getParameter("KamarTidur"));
+			int KamarMandi = Integer.parseInt(request.getParameter("KamarMandi"));
+			if(Kecamatan.compareTo("kosong") == 0) {
+				Filters2Fix1(request, response, mongodbUtils,LuasTanahMin,LuasTanahMax,LuasBangunanMin,LuasBangunanMax,HargaMin,HargaMax,KamarTidur,KamarMandi);
+			}else {
+				Filters2Fix2(request, response, mongodbUtils, LuasTanahMin, LuasTanahMax, LuasBangunanMin, 
+						LuasBangunanMax, Kecamatan,HargaMin,HargaMax,KamarTidur,KamarMandi);
+			}
+		}else if("Urutkan".equals(action)) {
 			int SortValue = Integer.parseInt(request.getParameter("SortHarga"));
-			System.out.println(SortValue);
-			Filters4(request, response, mongodbUtils, SortValue);
+			if(Kecamatan.compareTo("kosong") == 0) {
+				Filters7(request, response, mongodbUtils, SortValue,HargaMin,HargaMax,LuasTanahMin,LuasTanahMax, LuasBangunanMin, LuasBangunanMax);
+			}else {
+				Filters6(request, response, mongodbUtils, SortValue,Kecamatan,HargaMin,HargaMax,LuasTanahMin,LuasTanahMax, LuasBangunanMin, LuasBangunanMax);
+			}
 		}
 	}
 	
@@ -188,7 +196,7 @@ public class ActionController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+	//
 	public void showDataPemilik(HttpServletRequest request, HttpServletResponse response,
 			MongoDBUtils mongodbUtils, String id) {
 		try {
@@ -200,7 +208,7 @@ public class ActionController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+	//
 	public void Filters1(HttpServletRequest request, HttpServletResponse response,
 			MongoDBUtils mongodbUtils, String kecamatan, int HargaMin, int HargaMax) {
 		try {
@@ -212,7 +220,7 @@ public class ActionController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+	//
 	public void Filters2(HttpServletRequest request, HttpServletResponse response,
 			MongoDBUtils mongodbUtils, int HargaMin, int HargaMax) {
 		try {
@@ -224,40 +232,87 @@ public class ActionController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	public void Filters3(HttpServletRequest request, HttpServletResponse response, 
-			MongoDBUtils mongodbUtils, int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin, 
-			int LuasBangunanMax, String kecamatan, int kamarTidur, int kamarMandi) {
+	//
+	public void Filters6(HttpServletRequest request, HttpServletResponse response, 
+			MongoDBUtils mongodbUtils,int SortValue, String Kecamatan, int HargaMin, int HargaMax,int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin, 
+			int LuasBangunanMax)  {
 		try {
 			System.out.println("Menampilkan Data ...");
-				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter3(LuasTanahMin, LuasTanahMax, 
-						LuasBangunanMin, LuasBangunanMax, kecamatan, kamarTidur, kamarMandi);
+				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter6(SortValue,Kecamatan,HargaMin,HargaMax,LuasTanahMin,LuasTanahMax, LuasBangunanMin, LuasBangunanMax);
 				request.setAttribute("dataR", listRumah);
-			request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
+				request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//
+	public void Filters7(HttpServletRequest request, HttpServletResponse response, 
+			MongoDBUtils mongodbUtils,int SortValue,int HargaMin, int HargaMax,int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin, 
+			int LuasBangunanMax)  {
+		try {
+			System.out.println("Menampilkan Data ...");
+				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter7(SortValue,HargaMin,HargaMax,LuasTanahMin,LuasTanahMax, LuasBangunanMin, LuasBangunanMax);
+				request.setAttribute("dataR", listRumah);
+				request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void Filters2Fix1(HttpServletRequest request, HttpServletResponse response, 
+			MongoDBUtils mongodbUtils,
+			int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin, int LuasBangunanMax, int HargaMin, 
+			int HargaMax, int KamarTidur, int KamarMandi)  {
+		try {
+			System.out.println("Menampilkan Data ...");
+				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter2Fix1(LuasTanahMin,LuasTanahMax,
+						LuasBangunanMin,LuasBangunanMax,HargaMin,HargaMax,KamarTidur,KamarMandi);
+				request.setAttribute("dataR", listRumah);
+				request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void Filters4(HttpServletRequest request, HttpServletResponse response,
-			MongoDBUtils mongodbUtils, int SortValue) {
+	public void Filters2Fix2(HttpServletRequest request, HttpServletResponse response, 
+			MongoDBUtils mongodbUtils,int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin, 
+			int LuasBangunanMax, String Kecamatan, int HargaMin, int HargaMax, int KamarTidur, int KamarMandi)  {
 		try {
 			System.out.println("Menampilkan Data ...");
-				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter4(SortValue);
+				List<Rumah> listRumah= mongodbUtils.getRumahbyFilter2Fix2(LuasTanahMin, LuasTanahMax, LuasBangunanMin, 
+						LuasBangunanMax, Kecamatan,HargaMin,HargaMax,KamarTidur,KamarMandi);
 				request.setAttribute("dataR", listRumah);
-			request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
+				request.getRequestDispatcher("TampilRumahFIlter2.jsp").forward(request, response);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+	//
 	public void showDataRumah(HttpServletRequest request, HttpServletResponse response,
 			MongoDBUtils mongodbUtils, String nomorHP) {
 		try {
-			System.out.println("Menampilkan Data ...");
-			ArrayList<Rumah> listRumah = mongodbUtils.getRumahByPemilik(nomorHP);
-			request.setAttribute("dataRumah", listRumah);
-			request.getRequestDispatcher("ListRumah.jsp").forward(request, response);
+			/*ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilik();
+			ArrayList<Rumah> listRumah = mongodbUtils.getRumah();
+			for(int i=0; i<listPemilik.size();i++) {
+				List<String> idRumah = listPemilik.get(i).getIdRumahList();
+				for(int j=0; j<listRumah.size();j++) {
+					if(idRumah.contains(listRumah.get(j).getId())) {
+						listPemilik.get(i).addRumah(listRumah.get(j));
+					}
+				}
+			}*/
+			ArrayList<Pemilik> listPemilik = mongodbUtils.getPemilik();
+			ArrayList<Rumah> listRumah = mongodbUtils.getRumah();
+			for(int i=0; i<listPemilik.size();i++) {
+				List<String> idRumah = listPemilik.get(i).getIdRumahList();
+				for(int j=0; j<listRumah.size(); j++) {
+					if(idRumah.contains(listRumah.get(j).getId())){
+						listPemilik.get(i).addRumah(listRumah.get(j));
+					}
+				}
+			}
+			request.setAttribute("dataList", listPemilik);
+			request.getRequestDispatcher("/DetailPemilik.jsp").forward(request, response);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

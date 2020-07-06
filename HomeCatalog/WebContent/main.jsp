@@ -47,7 +47,7 @@
 				<option value="Ujungberung">Ujungberung</option>
 			</select>
 		
-		<input type="hidden" name="action" value="SearchKecamatan"><input class="btn btn-info" type="submit" value="Cari"/>
+		
         </div>
     <br>
     </br>
@@ -95,6 +95,7 @@
 				<option value="1800000000">1,8M</option>
 				<option value="2000000000">2M</option>
 			</select>
+			<input style="margin-left: 185px"type="hidden" name="action" value="SearchKecamatan"><input style="margin-left: 185px"class="btn btn-info" type="submit" value="Cari"/>
 		</div>
 		</form>
 	</div>
@@ -110,10 +111,10 @@
                 	<th>Harga</th>
                 	<th>Luas Tanah</th>
 					<th>Luas Bangunan</th>
-					<th>Foto</th>
 					<th>Kamar Tidur</th>
 					<th>Kamar Mandi</th>
 					<th>Garasi</th>
+					<th>Dapur</th>
 					<th>Halaman Belakang</th>
 					
             	</tr>
@@ -141,8 +142,8 @@
 			        	<input type="hidden" name="Alamat"     		value="${dataItem.alamat}">
 			       		<input type="hidden" name="Kecamatan"     	value="${dataItem.kecamatan}">
 			       		<input type="hidden" name="Harga"      		value="${dataItem.harga}">
-			       		<input type="hidden" name="LuasTanah"  		value="${dataItem.getLuas().getLuasTanah()}">
-			       		<input type="hidden" name="LuasBarang"     		value="${dataItem.getLuas().getLuasBangunan()}">
+			       		<input type="hidden" name="LuasTanah"  		value="${dataItem.getLuas().getLuasTanah()}}">
+			       		<input type="hidden" name="LuasBangunan"    value="${dataItem.getLuas().getLuasBangunan()}">
 			       		<input type="hidden" name="KamarTidur"     	value="${dataItem.getFasilitas().getKamarTidur()}">
 			       		<input type="hidden" name="KamarMandi"     	value="${dataItem.getFasilitas().getKamarMandi()}">
 			       		<input type="hidden" name="Garasi"      	value="${dataItem.getFasilitas().getGarasi()}">
