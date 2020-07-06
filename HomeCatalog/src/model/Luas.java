@@ -1,12 +1,12 @@
 package model;
 
 public class Luas {
-	int luasBangunan;
 	int luasTanah;
+	int luasBangunan;
 	
 	public Luas() {}
 	
-	public  Luas(int luasBangunan, int luasTanah) {
+	public  Luas(int luasTanah, int luasBangunan) {
 		super();
 		this.luasTanah = luasTanah;
 		this.luasBangunan = luasBangunan;
