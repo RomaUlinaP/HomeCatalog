@@ -1,11 +1,11 @@
 package model;
 
 public class Fasilitas {
-	private int kamarTidur;
-	private int kamarMandi;
-	private int garasi;
-	private int dapur;
-	private int halamanBelakang;
+	int kamarTidur;
+	int kamarMandi;
+	int garasi;
+	int dapur;
+	int halamanBelakang;
 	
 	public Fasilitas() {}
 	

@@ -10,9 +10,97 @@
 <body>
 	<jsp:include page="HalamanUtama.jsp" />
 	<div class ="container">
-		<form action="ActionController" method="post">
-			<input class="btn btn-info" type="submit" name="action" value="Retrieve">
-        </form>
+		<form class ="form-inline" action="ActionController" method="post">
+		<div class="form-group">
+			<select style="margin-left: 0px;width:595px; overflow=auto; height=50%; max-height:100px" class="form-control" name="Kec">
+				<option value="kosong">Cari berdasarkan kecamatan</option>
+				<option value="Bandung Barat">Bandung Barat</option>
+				<option value="Kab. Bandung">Kab. Bandung</option>
+				<option value="Andir">Andir</option>
+				<option value="Antapani">Antapani</option>
+				<option value="Arcamanik">Arcamanik</option>
+				<option value="Astanaanyar">Astanaanyar</option>
+				<option value="Babakanciparay">Babakanciparay</option>
+				<option value="Bandung Kidul">Bandung Kidul</option>
+				<option value="Bandung Kulon">Bandung Kulon</option>
+				<option value="Bandung Wetan">Bandung Wetan</option>
+				<option value="Batununggal">Batununggal</option>
+				<option value="Bojongloa Kaler">Bojongloa Kaler</option>
+				<option value="Bojongloa kidul">Bojongloa kidul</option>
+				<option value="Buah batu">Buah batu</option>
+				<option value="Cibeunying kaler">Cibeunying kaler</option>
+				<option value="Cibeunying kidul">Cibeunying kidul</option>
+				<option value="Cibiru">Cibiru</option>
+				<option value="Cicendo">Cicendo</option>
+				<option value="Cidadap">Cidadap</option>
+				<option value="Cinambo">Cinambo</option>
+				<option value="Coblong">Coblong</option>
+				<option value="Gedebage">Gedebage</option>
+				<option value="Kiaracondong">Kiaracondong</option>
+				<option value="Lengkong">Lengkong</option>
+				<option value="Mandalajati">Mandalajati</option>
+				<option value="Rancasari">Rancasari</option>
+				<option value="Regol">Regol</option>
+				<option value="Sukajadi">Sukajadi</option>
+				<option value="Sukasari">Sukasari</option>
+				<option value="Sumurbandung">Sumurbandung</option>
+				<option value="Ujungberung">Ujungberung</option>
+			</select>
+		
+		
+        </div>
+    <br>
+    </br>
+    	<div class="form-inline">
+    		<label style="margin-left: 20px;">Harga Min (Rp.)</label>
+    		<label style="margin-left: 100px;">Harga Maks (Rp.)</label>	
+    	</div>
+
+    	<div class="form-inline">
+			<select style="margin-left: 0px;width:150px; overflow=auto; height=50%; max-height:100px" class="form-control" name="HargaMin">
+				<option value="0">Berapapun</option>
+				<option value="50000000">50Jt</option>
+				<option value="100000000">100Jt</option>
+				<option value="200000000">200Jt</option>
+				<option value="300000000">300Jt</option>
+				<option value="400000000">400Jt</option>
+				<option value="500000000">500Jt</option>
+				<option value="600000000">600Jt</option>
+				<option value="700000000">700Jt</option>
+				<option value="800000000">800Jt</option>
+				<option value="900000000">900Jt</option>
+				<option value="1000000000">1M</option>
+				<option value="1200000000">1,2M</option>
+				<option value="1400000000">1,4M</option>
+				<option value="1600000000">1,6M</option>
+				<option value="1800000000">1,8M</option>
+				<option value="2000000000">2M</option>
+			</select>
+			<select style="margin-left: 50px;width:150px; overflow=auto; height=50%; max-height:100px" class="form-control" name="HargaMaks">
+				<option value="2000000000">Berapapun</option>
+				<option value="50000000">50Jt</option>
+				<option value="100000000">100Jt</option>
+				<option value="200000000">200Jt</option>
+				<option value="300000000">300Jt</option>
+				<option value="400000000">400Jt</option>
+				<option value="500000000">500Jt</option>
+				<option value="600000000">600Jt</option>
+				<option value="700000000">700Jt</option>
+				<option value="800000000">800Jt</option>
+				<option value="900000000">900Jt</option>
+				<option value="1000000000">1M</option>
+				<option value="1200000000">1,2M</option>
+				<option value="1400000000">1,4M</option>
+				<option value="1600000000">1,6M</option>
+				<option value="1800000000">1,8M</option>
+				<option value="2000000000">2M</option>
+			</select>
+			<input style="margin-left: 185px"type="hidden" name="action" value="SearchKecamatan"><input style="margin-left: 185px"class="btn btn-info" type="submit" value="Cari"/>
+		</div>
+		</form>
+	</div>
+	
+    <div class ="container">
     	<h3>Daftar Rumah</h3>
         <table class="table">
         	<thead>
@@ -21,12 +109,12 @@
                 	<th>Alamat</th>
                 	<th>Provinsi</th>
                 	<th>Harga</th>
-                	<th>Panjang</th>
-					<th>Lebar</th>
-					<th>Foto</th>
+                	<th>Luas Tanah</th>
+					<th>Luas Bangunan</th>
 					<th>Kamar Tidur</th>
 					<th>Kamar Mandi</th>
 					<th>Garasi</th>
+					<th>Dapur</th>
 					<th>Halaman Belakang</th>
 					
             	</tr>

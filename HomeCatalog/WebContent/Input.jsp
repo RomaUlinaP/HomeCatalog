@@ -27,12 +27,43 @@
         		<input class="form-control" placeholder="Masukan Alamat" name="Alamat" value="${Alamat}">
       		</div>
     	</div>
-		<div class="form-group">
-      		<label class="control-label col-sm-2">Provinsi:</label>
-      		<div class="col-sm-10">
-        		<input class="form-control" placeholder="Masukan Provinsi" name="Provinsi" value="${Provinsi}">
-      		</div>
-    	</div>
+    	<div class="form-group">
+    		<label style="margin-left: 100px;">Kecamatan:</label>
+			<select style="margin-left: 210px;width:945px; overflow=auto; height=50%; max-height:100px" class="form-control" name="Kecamatan">
+				<option value="Bandung Barat">Bandung Barat</option>
+				<option value="Kab. Bandung">Kab. Bandung</option>
+				<option value="Andir">Andir</option>
+				<option value="Antapani">Antapani</option>
+				<option value="Arcamanik">Arcamanik</option>
+				<option value="Astanaanyar">Astanaanyar</option>
+				<option value="Babakanciparay">Babakanciparay</option>
+				<option value="Bandung Kidul">Bandung Kidul</option>
+				<option value="Bandung Kulon">Bandung Kulon</option>
+				<option value="Bandung Wetan">Bandung Wetan</option>
+				<option value="Batununggal">Batununggal</option>
+				<option value="Bojongloa Kaler">Bojongloa Kaler</option>
+				<option value="Bojongloa kidul">Bojongloa kidul</option>
+				<option value="Buah batu">Buah batu</option>
+				<option value="Cibeunying kaler">Cibeunying kaler</option>
+				<option value="Cibeunying kidul">Cibeunying kidul</option>
+				<option value="Cibiru">Cibiru</option>
+				<option value="Cicendo">Cicendo</option>
+				<option value="Cidadap">Cidadap</option>
+				<option value="Cinambo">Cinambo</option>
+				<option value="Coblong">Coblong</option>
+				<option value="Gedebage">Gedebage</option>
+				<option value="Kiaracondong">Kiaracondong</option>
+				<option value="Lengkong">Lengkong</option>
+				<option value="Mandalajati">Mandalajati</option>
+				<option value="Rancasari">Rancasari</option>
+				<option value="Regol">Regol</option>
+				<option value="Sukajadi">Sukajadi</option>
+				<option value="Sukasari">Sukasari</option>
+				<option value="Sumurbandung">Sumurbandung</option>
+				<option value="Ujungberung">Ujungberung</option>
+			</select>
+		</div>
+
 		<div class="form-group">
       		<label class="control-label col-sm-2">Harga:</label>
       		<div class="col-sm-10">

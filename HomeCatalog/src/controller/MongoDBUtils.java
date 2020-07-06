@@ -74,6 +74,214 @@ public class MongoDBUtils {
 		return resultList;
 	}
 	
+	public ArrayList<Pemilik> getPemilikbyid(String id) throws IOException {	
+		ArrayList<Pemilik> resultList = new ArrayList<>();
+		ArrayList<Pemilik> p = getPemilik();
+		for (Pemilik pemilik : p) {
+	        if (pemilik.getId().equals(id)) {
+	        	resultList.add(pemilik);
+	        	return resultList;
+	        }
+	    }
+		return resultList;
+	}
+	
+	public List<Rumah> getRumahbyFilter1(String kecamatan, int HargaMin, int HargaMax) throws IOException {	
+		List<Rumah> resultList = RumahCollection.find(Filters.and(
+				Filters.and(
+						Filters.eq("kecamatan",kecamatan),
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax)),
+				Filters.or(
+						Filters.eq("kecamatan",kecamatan),
+						Filters.and(
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax))))).into(new ArrayList<Rumah>());
+		return resultList;
+	}
+	
+	public List<Rumah> getRumahbyFilter2(int HargaMin, int HargaMax) throws IOException {	
+		List<Rumah> resultList = RumahCollection.find(Filters.and(
+				Filters.gte("harga", HargaMin),
+				Filters.lte("harga", HargaMax))).into(new ArrayList<Rumah>());
+		return resultList;
+	}
+	
+	/*Sort Harga berdasarkan kecamatan, harga (minimal & maksimal, luas Tanah(minimal & maksimal, luas Bangunan(minimal & maksimal)*/
+	public List<Rumah> getRumahbyFilter6(int SortValue, String Kecamatan, int HargaMin, int HargaMax, int LuasTanahMin,
+			int LuasTanahMax, int LuasBangunanMin, int LuasBangunanMax) {
+		ArrayList<Rumah> resultList = new ArrayList<>();
+		FindIterable<Rumah> rumahIterable = RumahCollection.find(Filters.and(
+				Filters.eq("kecamatan",Kecamatan),
+				Filters.gte("harga", HargaMin),
+				Filters.lte("harga", HargaMax),
+				Filters.gte("luas.luasTanah", LuasTanahMin),
+				Filters.lte("luas.luasTanah", LuasTanahMax),
+				Filters.gte("luas.luasBangunan", LuasBangunanMin),
+				Filters.lte("luas.luasBangunan", LuasBangunanMax))).sort(new BasicDBObject("harga",SortValue));
+		for (Rumah rumah : rumahIterable) {
+			resultList.add(rumah);
+		}	
+		return resultList;
+	}
+	/*Sort Harga Tanpa Kecamatan*/
+	public List<Rumah> getRumahbyFilter7(int SortValue, int HargaMin, int HargaMax, int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin, 
+			int LuasBangunanMax) {
+		ArrayList<Rumah> resultList = new ArrayList<>();
+		FindIterable<Rumah> rumahIterable = RumahCollection.find(Filters.and(
+				Filters.gte("harga", HargaMin),
+				Filters.lte("harga", HargaMax),
+				Filters.gte("luas.luasTanah", LuasTanahMin),
+				Filters.lte("luas.luasTanah", LuasTanahMax),
+				Filters.gte("luas.luasBangunan", LuasBangunanMin),
+				Filters.lte("luas.luasBangunan", LuasBangunanMax)
+				)).sort(new BasicDBObject("harga",SortValue));
+		for (Rumah rumah : rumahIterable) {
+			resultList.add(rumah);
+		}	
+		return resultList;
+	}
+	
+	public List<Rumah> getRumahbyFilter2Fix1(int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin,
+			int LuasBangunanMax, int HargaMin, int HargaMax, int KamarTidur,int KamarMandi){
+		ArrayList<Rumah> resultList = new ArrayList<>();
+		if(KamarTidur==0) {
+			if(KamarMandi==0) {
+				resultList = RumahCollection.find(Filters.and(
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax),
+						Filters.gte("luas.luasTanah", LuasTanahMin),
+						Filters.lte("luas.luasTanah", LuasTanahMax),
+						Filters.and(
+							Filters.gte("luas.luasBangunan", LuasBangunanMin),
+							Filters.lte("luas.luasBangunan", LuasBangunanMax),
+						Filters.gte("fasilitas.kamarTidur", KamarTidur),
+						Filters.gte("fasilitas.kamarMandi", KamarMandi)))).into(new ArrayList<Rumah>());
+			}else {
+				resultList = RumahCollection.find(Filters.and(
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax),
+						Filters.gte("luas.luasTanah", LuasTanahMin),
+						Filters.lte("luas.luasTanah", LuasTanahMax),
+						Filters.and(
+							Filters.gte("luas.luasBangunan", LuasBangunanMin),
+							Filters.lte("luas.luasBangunan", LuasBangunanMax),
+						Filters.gte("fasilitas.kamarTidur", KamarTidur),
+						Filters.eq("fasilitas.kamarMandi", KamarMandi)))).into(new ArrayList<Rumah>());
+			}
+		}else {
+			if(KamarMandi==0) {
+				resultList = RumahCollection.find(Filters.and(
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax),
+						Filters.gte("luas.luasTanah", LuasTanahMin),
+						Filters.lte("luas.luasTanah", LuasTanahMax),
+						Filters.and(
+							Filters.gte("luas.luasBangunan", LuasBangunanMin),
+							Filters.lte("luas.luasBangunan", LuasBangunanMax),
+						Filters.eq("fasilitas.kamarTidur", KamarTidur),
+						Filters.gte("fasilitas.kamarMandi", KamarMandi)))).into(new ArrayList<Rumah>());
+			}else {
+				resultList = RumahCollection.find(Filters.and(
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax),
+						Filters.gte("luas.luasTanah", LuasTanahMin),
+						Filters.lte("luas.luasTanah", LuasTanahMax),
+						Filters.and(
+							Filters.gte("luas.luasBangunan", LuasBangunanMin),
+							Filters.lte("luas.luasBangunan", LuasBangunanMax),
+					Filters.eq("fasilitas.kamarTidur", KamarTidur),
+					Filters.eq("fasilitas.kamarMandi", KamarMandi)))).into(new ArrayList<Rumah>());
+			}
+		}
+		return resultList;
+	}
+	
+	public List<Rumah> getRumahbyFilter2Fix2(int LuasTanahMin, int LuasTanahMax, int LuasBangunanMin, 
+			int LuasBangunanMax, String Kecamatan, int HargaMin, int HargaMax, int KamarTidur, int KamarMandi){
+		ArrayList<Rumah> resultList = new ArrayList<>();
+		if(KamarTidur==0) {
+			if(KamarMandi==0) {
+				resultList = RumahCollection.find(Filters.and(
+						Filters.eq("kecamatan",Kecamatan),
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax),
+						Filters.gte("luas.luasTanah", LuasTanahMin),
+						Filters.lte("luas.luasTanah", LuasTanahMax),
+						Filters.and(
+							Filters.gte("luas.luasBangunan", LuasBangunanMin),
+							Filters.lte("luas.luasBangunan", LuasBangunanMax),
+						Filters.gte("fasilitas.kamarTidur", KamarTidur),
+						Filters.gte("fasilitas.kamarMandi", KamarMandi)))).into(new ArrayList<Rumah>());
+			}else {
+				resultList = RumahCollection.find(Filters.and(
+						Filters.eq("kecamatan",Kecamatan),
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax),
+						Filters.gte("luas.luasTanah", LuasTanahMin),
+						Filters.lte("luas.luasTanah", LuasTanahMax),
+						Filters.and(
+							Filters.gte("luas.luasBangunan", LuasBangunanMin),
+							Filters.lte("luas.luasBangunan", LuasBangunanMax),
+						Filters.gte("fasilitas.kamarTidur", KamarTidur),
+						Filters.eq("fasilitas.kamarMandi", KamarMandi)))).into(new ArrayList<Rumah>());
+			}
+		}else {
+			if(KamarMandi==0) {
+				resultList = RumahCollection.find(Filters.and(
+						Filters.eq("kecamatan",Kecamatan),
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax),
+						Filters.gte("luas.luasTanah", LuasTanahMin),
+						Filters.lte("luas.luasTanah", LuasTanahMax),
+						Filters.and(
+							Filters.gte("luas.luasBangunan", LuasBangunanMin),
+							Filters.lte("luas.luasBangunan", LuasBangunanMax),
+						Filters.eq("fasilitas.kamarTidur", KamarTidur),
+						Filters.gte("fasilitas.kamarMandi", KamarMandi)))).into(new ArrayList<Rumah>());
+			}else {
+				resultList = RumahCollection.find(Filters.and(
+						Filters.eq("kecamatan",Kecamatan),
+						Filters.gte("harga", HargaMin),
+						Filters.lte("harga", HargaMax),
+						Filters.gte("luas.luasTanah", LuasTanahMin),
+						Filters.lte("luas.luasTanah", LuasTanahMax),
+						Filters.and(
+							Filters.gte("luas.luasBangunan", LuasBangunanMin),
+							Filters.lte("luas.luasBangunan", LuasBangunanMax),
+					Filters.eq("fasilitas.kamarTidur", KamarTidur),
+					Filters.eq("fasilitas.kamarMandi", KamarMandi)))).into(new ArrayList<Rumah>());
+			}
+		}
+		return resultList;
+	}
+	
+	/*Sort Harga tanpa Luas tanah dan luas bangunan*/
+	public List<Rumah> getRumahbyFilter8( int SortValue,String kecamatan, int HargaMin, int HargaMax) {
+		ArrayList<Rumah> resultList = new ArrayList<>();
+		FindIterable<Rumah> rumahIterable = RumahCollection.find(Filters.and(
+				Filters.eq("kecamatan", kecamatan),
+				Filters.gte("harga", HargaMin),
+				Filters.lte("harga", HargaMax))).sort(new BasicDBObject("harga",SortValue));
+		for (Rumah rumah : rumahIterable) {
+			resultList.add(rumah);
+		}	
+		return resultList;
+	}
+	
+	public ArrayList<Rumah> getRumahByPemilik(String nomorHP) throws IOException {		
+		Pemilik p = findPemilikByNomorHP(nomorHP);
+		String id = p.getId(); 
+		ArrayList<Rumah> resultList = new ArrayList<>();
+		ArrayList<Rumah> r = getRumah();
+		for (Rumah rumah : r) {
+	        if (rumah.getIdPemilik().equals(id)) {
+	        	resultList.add(rumah);
+	       }
+	    }		
+		return resultList;
+	}
+
 	public ArrayList<Rumah> getRumah() throws IOException {		
 		ArrayList<Rumah> resultList = new ArrayList<>();
 		FindIterable<Rumah> rumahIterable = RumahCollection.find();		
@@ -100,7 +308,8 @@ public class MongoDBUtils {
 		    	System.out.println("Menambah Data Rumah");
 		    	String idRumah = new ObjectId().toString();
 		    	idRumahList.add(idRumah);
-	            Rumah rumah = new Rumah(idRumah, nama, status, provinsi, alamat, harga, ukuran, fasilitas, idPemilik);
+		    	Rumah rumah = new Rumah(idRumah, nama, kecamatan, alamat, harga, luas, fasilitas, idPemilik);
+
 
 				RumahCollection.insertOne(rumah);
 				//Menambahkan list rumah pada data pemilik
@@ -185,4 +394,6 @@ public class MongoDBUtils {
     			.projection(Projections.fields(Projections.include("id"))).first();
     	return p;
 	}
+
+
 }
